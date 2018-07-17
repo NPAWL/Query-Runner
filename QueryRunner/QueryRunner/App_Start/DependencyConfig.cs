@@ -25,16 +25,11 @@ namespace QueryRunner.App_Start
             builder.Register(x => StoreFactory.GetRole(new QueryRunnerEntities())).As<IRole>();
             builder.Register(x => StoreFactory.GetUser(new QueryRunnerEntities())).As<IUser>();
             builder.Register(x => StoreFactory.GetUserRole(new QueryRunnerEntities())).As<IUserRole>();
-            builder.Register(x => StoreFactory.GetSkip(new QueryRunnerEntities())).As<ISkip>();
-            builder.Register(x => StoreFactory.GetSkipTask(new QueryRunnerEntities())).As<ISkipTask>();
-            builder.Register(x => StoreFactory.GetCustomer(new QueryRunnerEntities())).As<ICustomer>();
-            builder.Register(x => StoreFactory.GetTask(new QueryRunnerEntities())).As<ITask>();
-            builder.Register(x => StoreFactory.GetTask_toCust(new QueryRunnerEntities())).As<ITask_toCust>();
-            builder.Register(x => StoreFactory.GetTask_toDump(new QueryRunnerEntities())).As<ITask_toDump>();
-            builder.Register(x => StoreFactory.GetTask_toYard(new QueryRunnerEntities())).As<ITask_toYard>();
-            builder.Register(x => StoreFactory.GetPhoto(new QueryRunnerEntities())).As<IPhoto>();
-            builder.Register(x => StoreFactory.GetSkip_Task_Photo(new QueryRunnerEntities())).As<ISkip_Task_Photo>();
-            builder.Register(x => StoreFactory.GetCheckIn(new QueryRunnerEntities())).As<ICheckIn>();
+            builder.Register(x => StoreFactory.GetTest(new QueryRunnerEntities())).As<ITest>();
+            builder.Register(x => StoreFactory.GetStudentAnswer(new QueryRunnerEntities())).As<IStudentAnswer>();
+            builder.Register(x => StoreFactory.GetUserLogin(new QueryRunnerEntities())).As<IUserLogin>();
+            builder.Register(x => StoreFactory.GetQuestion(new QueryRunnerEntities())).As<IQuestion>();
+            builder.Register(x => StoreFactory.GetToken(new QueryRunnerEntities())).As<IToken>();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

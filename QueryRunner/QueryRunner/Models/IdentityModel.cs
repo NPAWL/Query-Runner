@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using DataLayer.Entities;
 using Library.Models;
 
-namespace SkipTracker.Models
+namespace QueryRunner.Models
 {
     public class ApplicationUser : IdentityUser<int, IdentityUserLogin<int>, IdentityUserRole<int>, IdentityUserClaim<int>>, IUser<int>
     {
@@ -20,7 +20,7 @@ namespace SkipTracker.Models
         int IUser<int>.Id { get { return _id; } }
 
         public ApplicationUser() { }
-        public ApplicationUser(Model_User user)
+        public ApplicationUser(ModelUser user)
         {
             if (user != null)
             {
@@ -41,9 +41,9 @@ namespace SkipTracker.Models
             return userIdentity;
         }
 
-        public Model_User ToLibraryUser()
+        public ModelUser ToLibraryUser()
         {
-            return new Model_User
+            return new ModelUser
             {
                 UserID = Id,
                 FirstName = Name,

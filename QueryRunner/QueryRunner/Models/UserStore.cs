@@ -64,15 +64,15 @@ namespace QueryRunner.Models
         }
         public Task<TUser> FindByIdAsync(int userID)
         {
-            Store_User _store = new Store_User(_context);
+            StoreUser _store = new StoreUser(_context);
             var user = _store.GetUser(userID);
             var result = new ApplicationUser(user);
             return System.Threading.Tasks.Task.FromResult(result as TUser);
         }
         public Task<TUser> FindByNameAsync(string userName)
         {
-            Store_User _store = new Store_User(_context);
-            var user = _store.GetUserByUsername(userName);
+            StoreUser _store = new StoreUser(_context);
+            var user = _store.GetUser(userName);
             var result = new ApplicationUser(user);
             return System.Threading.Tasks.Task.FromResult(result as TUser);
         }

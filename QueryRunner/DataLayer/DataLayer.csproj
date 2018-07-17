@@ -50,14 +50,73 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseEntities.cs" />
+    <Compile Include="Entities\QueryRunnerEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QueryRunnerEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\QueryRunnerEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QueryRunnerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\QueryRunnerEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QueryRunnerEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Question.cs">
+      <DependentUpon>QueryRunnerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Role.cs">
+      <DependentUpon>QueryRunnerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\StudentAnswer.cs">
+      <DependentUpon>QueryRunnerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Test.cs">
+      <DependentUpon>QueryRunnerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Token.cs">
+      <DependentUpon>QueryRunnerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\User.cs">
+      <DependentUpon>QueryRunnerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\UserLogin.cs">
+      <DependentUpon>QueryRunnerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\UserRole.cs">
+      <DependentUpon>QueryRunnerEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="Entities\QueryRunnerEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QueryRunnerEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Entities\QueryRunnerEntities.edmx.diagram">
+      <DependentUpon>QueryRunnerEntities.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entities\" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Entities\QueryRunnerEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QueryRunnerEntities.edmx</DependentUpon>
+      <LastGenOutput>QueryRunnerEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entities\QueryRunnerEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QueryRunnerEntities.edmx</DependentUpon>
+      <LastGenOutput>QueryRunnerEntities.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

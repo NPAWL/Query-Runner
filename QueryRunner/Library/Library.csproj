@@ -46,8 +46,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IQuestion.cs" />
+    <Compile Include="Interfaces\IRole.cs" />
+    <Compile Include="Interfaces\IStudentAnswer.cs" />
+    <Compile Include="Interfaces\ITest.cs" />
+    <Compile Include="Interfaces\IToken.cs" />
+    <Compile Include="Interfaces\IUser.cs" />
+    <Compile Include="Interfaces\IUserLogin.cs" />
+    <Compile Include="Interfaces\IUserRole.cs" />
+    <Compile Include="Models\ModelQuestion.cs" />
+    <Compile Include="Models\ModelRole.cs" />
+    <Compile Include="Models\ModelStudentAnswer.cs" />
+    <Compile Include="Models\ModelTest.cs" />
+    <Compile Include="Models\ModelToken.cs" />
+    <Compile Include="Models\ModelUser.cs" />
+    <Compile Include="Models\ModelUserLogin.cs" />
+    <Compile Include="Models\ModelUserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stores\StoreFactory.cs" />
+    <Compile Include="Stores\StoreQuestion.cs" />
+    <Compile Include="Stores\StoreRole.cs" />
+    <Compile Include="Stores\StoreStudentAnswer.cs" />
+    <Compile Include="Stores\StoreTest.cs" />
+    <Compile Include="Stores\StoreToken.cs" />
+    <Compile Include="Stores\StoreUser.cs" />
+    <Compile Include="Stores\StoreUserLogin.cs" />
+    <Compile Include="Stores\StoreUserRole.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj">
@@ -59,9 +83,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

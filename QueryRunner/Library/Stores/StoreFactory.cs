@@ -12,67 +12,43 @@ namespace Library.Stores
     {
         public static IRole GetRole(QueryRunnerEntities context)
         {
-            return new Store_Role(context);
+            return new StoreRole(context);
         }
 
         public static IUser GetUser(QueryRunnerEntities context)
         {
-            return new Store_User(context);
+            return new StoreUser(context);
         }
 
         public static IUserRole GetUserRole(QueryRunnerEntities context)
         {
-            return new Store_User_Role(context);
+            return new StoreUserRole(context);
         }
 
-        public static ICustomer GetCustomer(QueryRunnerEntities context)
+        public static IUserLogin GetUserLogin(QueryRunnerEntities context)
         {
-            return new Store_Customer(context);
+            return new StoreUserLogin(context);
         }
 
-        public static ISkip GetSkip(QueryRunnerEntities context)
+        public static IQuestion GetQuestion(QueryRunnerEntities context)
         {
-            return new Store_Skip(context);
+            return new StoreQuestion(context);
         }
 
-        public static ITask GetTask(QueryRunnerEntities context)
+        public static ITest GetTest(QueryRunnerEntities context)
         {
-            return new Store_Task(context);
+            return new StoreTest(context);
         }
 
-        public static ISkipTask GetSkipTask(QueryRunnerEntities context)
+        public static IStudentAnswer GetStudentAnswer(QueryRunnerEntities context)
         {
-            return new Store_Skip_Task(context);
+            return new StoreStudentAnswer(context);
         }
 
-        public static ITask_toCust GetTask_toCust(QueryRunnerEntities context)
+        public static IToken GetToken(QueryRunnerEntities context)
         {
-            return new Store_Task_toCust(context);
+            return new StoreToken(context);
         }
 
-        public static ITask_toDump GetTask_toDump(QueryRunnerEntities context)
-        {
-            return new Store_Task_toDump(context);
-        }
-
-        public static ITask_toYard GetTask_toYard(QueryRunnerEntities context)
-        {
-            return new Store_Task_toYard(context);
-        }
-
-        public static IPhoto GetPhoto(QueryRunnerEntities context)
-        {
-            return new Store_Photo(context);
-        }
-
-        public static ISkip_Task_Photo GetSkip_Task_Photo(QueryRunnerEntities context)
-        {
-            return new Store_Skip_Task_Photo(context);
-        }
-
-        public static ICheckIn GetCheckIn(QueryRunnerEntities context)
-        {
-            return new Store_CheckIn(context);
-        }
     }
 }

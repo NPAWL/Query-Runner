@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1a9ce5358c524f3c91252579362cbc84" Name="Diagram1">
+        <EntityTypeShape EntityType="QueryRunnerModel.Question" Width="1.5" PointX="7.375" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueryRunnerModel.Role" Width="1.5" PointX="6.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueryRunnerModel.StudentAnswer" Width="1.5" PointX="10" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueryRunnerModel.Test" Width="1.5" PointX="5.25" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueryRunnerModel.Token" Width="1.5" PointX="3.25" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueryRunnerModel.User" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueryRunnerModel.UserLogin" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QueryRunnerModel.UserRole" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <AssociationConnector Association="QueryRunnerModel.FK_Question_Test" ManuallyRouted="false" />
+        <AssociationConnector Association="QueryRunnerModel.FK_StudentAnswer_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="QueryRunnerModel.FK_UserRole_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="QueryRunnerModel.FK_StudentAnswer_User" ManuallyRouted="false" />
+        <AssociationConnector Association="QueryRunnerModel.FK_Test_User" ManuallyRouted="false" />
+        <AssociationConnector Association="QueryRunnerModel.FK_Token_Test" ManuallyRouted="false" />
+        <AssociationConnector Association="QueryRunnerModel.FK_Token_User" ManuallyRouted="false" />
+        <AssociationConnector Association="QueryRunnerModel.FK_UserLogin_User" ManuallyRouted="false" />
+        <AssociationConnector Association="QueryRunnerModel.FK_UserRole_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
