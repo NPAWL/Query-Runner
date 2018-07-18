@@ -12,6 +12,7 @@ namespace Library.Interfaces
         IQueryable<ModelUserRole> ReadUserRoles();
         ModelUserRole GetUserRole(int urid);
         ModelUserRole GetUserRole(string rolename, string username);
+        void CreateUserRole(ModelUserRole model);
         void CreateUserRole(ModelUserRole model, string rolename, string username);
         void DeleteUserRole(ModelUserRole model);
         void UpdateUserRole(ModelUserRole model);

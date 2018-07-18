@@ -11,7 +11,9 @@ namespace Library.Interfaces
     {
         IQueryable<ModelQuestion> ReadQuestions();
         ModelQuestion GetQuestion(int qid);
+        IQueryable<ModelQuestion> GetQuestionsByTest(int testid);
         void CreateQuestion(ModelQuestion model);
+        void CreateQuestion(ModelQuestion model, int testid);
         void DeleteQuestion(ModelQuestion model);
         void UpdateQuestion(ModelQuestion model);
     }

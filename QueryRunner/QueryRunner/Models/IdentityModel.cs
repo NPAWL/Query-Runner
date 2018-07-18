@@ -11,45 +11,39 @@ using Library.Models;
 
 namespace QueryRunner.Models
 {
-    public class ApplicationUser : IdentityUser<int, IdentityUserLogin<int>, IdentityUserRole<int>, IdentityUserClaim<int>>, IUser<int>
+    public class ApplicationUser : IdentityUser<string, IdentityUserLogin<string>, IdentityUserRole<string>, IdentityUserClaim<string>>, IUser<string>
     {
-        private int _id;
-        public string Name { get; set; }
+        private string _id;                
         public bool UserActive { get; set; }
 
-        int IUser<int>.Id { get { return _id; } }
+        string IUser<string>.Id { get { return _id; } }
 
         public ApplicationUser() { }
         public ApplicationUser(ModelUser user)
         {
             if (user != null)
             {
-                _id = user.UserID;
-                Id = user.UserID;
-                Name = user.FirstName;
-                Email = user.Surname;
+                _id = user.Username;
+                Id = user.Username;     
                 UserName = user.Username;
-                PasswordHash = user.Password;
-                UserActive = user.UserActive ?? true;
+                PasswordHash = user.PasswordHash;
+                UserActive = user.UserActive;
             }
         }
 
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, int> manager)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, string> manager)
         {
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            userIdentity.AddClaim(new Claim(ClaimTypes.GivenName, Name));
+            userIdentity.AddClaim(new Claim(ClaimTypes.GivenName, UserName));
             return userIdentity;
         }
 
         public ModelUser ToLibraryUser()
         {
             return new ModelUser
-            {
-                UserID = Id,
-                FirstName = Name,
-                Surname = Email,
+            {                      
                 Username = UserName,
-                Password = PasswordHash,
+                PasswordHash = PasswordHash,
                 UserActive = UserActive
             };
         }

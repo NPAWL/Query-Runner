@@ -9,9 +9,11 @@ namespace Library.Interfaces
 {
     public interface IUserLogin
     {
-        IQueryable<ModelUserLogin> ReadUserLogin();
+        IQueryable<ModelUserLogin> ReadUserLogins();
         ModelUserLogin GetUserLogin(int loginid);
+        IQueryable<ModelUserLogin> GetUserLoginsByUsername(string username);
         void CreateUserLogin(ModelUserLogin model);
+        void CreateUserLogin(ModelUserLogin model, string username);
         void DeleteUserLogin(ModelUserLogin model);
         void UpdateUserLogin(ModelUserLogin model);
     }

@@ -9,8 +9,9 @@ namespace Library.Interfaces
 {
     public interface IUser
     {
-        IQueryable<ModelUser> ReadUsers();
+        IQueryable<ModelUser> ReadUsers(); 
         ModelUser GetUser(string username);
+        void CreateUser(ModelUser model);
         void CreateUser(ModelUser model, string rolename);
         void DeleteUser(ModelUser model);
         void UpdateUser(ModelUser model);
