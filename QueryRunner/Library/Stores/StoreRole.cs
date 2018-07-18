@@ -26,10 +26,10 @@ namespace Library.Stores
             return model.Get(_ctx);
         }
 
-        public ModelRole GetModelRole(string rolename)
+        public ModelRole GetRole(string rolename)
         {
             var model = new ModelRole();
-            return model.Get(_ctx).FirstOrDefault(x => x.CustID == custid);
+            return model.Get(_ctx).FirstOrDefault(x => x.RoleName == rolename);
         }
 
         public void CreateRole(ModelRole model)
@@ -38,8 +38,7 @@ namespace Library.Stores
             {
                 try
                 {
-                    model.CustActive = true;
-                    //model.Task_toCust.Clear();
+                    model.RoleActive = true;     
 
                     var entity = model.ToEntity();
 
@@ -62,9 +61,9 @@ namespace Library.Stores
             {
                 try
                 {
-                    var entity = _ctx.Customers.FirstOrDefault(x => x.CustID == model.CustID);
+                    var entity = _ctx.Roles.FirstOrDefault(x => x.RoleName == model.RoleName);
 
-                    entity.CustActive = false;
+                    entity.RoleActive = false;
 
                     _ctx.Update(entity);
                     _ctx.SaveChanges();
@@ -85,7 +84,7 @@ namespace Library.Stores
             {
                 try
                 {
-                    var entity = _ctx.Customers.FirstOrDefault(x => x.CustID == model.CustID);
+                    var entity = _ctx.Roles.FirstOrDefault(x => x.RoleName == model.RoleName);
 
                     model.Update(entity);
 
@@ -101,5 +100,6 @@ namespace Library.Stores
                 }
             }
         }
+
     }
 }
