@@ -12,9 +12,9 @@ using QueryRunner.Models;
 
 namespace QueryRunner
 {
-    public class ApplicationUserManager : UserManager<ApplicationUser, int>
+    public class ApplicationUserManager : UserManager<ApplicationUser, string>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser, int> store)
+        public ApplicationUserManager(IUserStore<ApplicationUser, string> store)
           : base(store)
         {
 
@@ -23,7 +23,7 @@ namespace QueryRunner
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
-            manager.UserValidator = new UserValidator<ApplicationUser, int>(manager)
+            manager.UserValidator = new UserValidator<ApplicationUser, string>(manager)
             {
                 AllowOnlyAlphanumericUserNames = true
             };
@@ -42,7 +42,7 @@ namespace QueryRunner
 
     }
 
-    public class ApplicationSignInManager : SignInManager<ApplicationUser, int>
+    public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
     {
         public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
           : base(userManager, authenticationManager)
