@@ -10,9 +10,9 @@ using Library.Stores;
 
 namespace QueryRunner.Models
 {
-    public class UserStore<TUser> : IUserStore<TUser, int>,
-                                    IUserPasswordStore<TUser, int>,
-                                    IQueryableUserStore<TUser, int>
+    public class UserStore<TUser> : IUserStore<TUser, string>,
+                                    IUserPasswordStore<TUser, string>,
+                                    IQueryableUserStore<TUser, string>
     where TUser : ApplicationUser
     {
         private QueryRunnerEntities _context;
@@ -23,12 +23,10 @@ namespace QueryRunner.Models
             {
                 return _context.Users.Select(u => new ApplicationUser
                 {
-                    Id = u.UserID,
-                    Name = u.FirstName,
-                    Email = u.Surname,
+                    Id = u.Username,     
                     UserName = u.Username,
-                    PasswordHash = u.Password,
-                    UserActive = u.UserActive ?? true
+                    PasswordHash = u.PasswordHash,
+                    UserActive = u.UserActive
                 } as TUser);
             }
         }
@@ -46,7 +44,7 @@ namespace QueryRunner.Models
 
         #region Implements IUserStore<TUser, Guid>
 
-        System.Threading.Tasks.Task IUserStore<TUser, int>.CreateAsync(TUser user)
+        System.Threading.Tasks.Task IUserStore<TUser, string>.CreateAsync(TUser user)
         {
             throw new NotImplementedException();
         }
@@ -62,7 +60,7 @@ namespace QueryRunner.Models
         {
             _context.Dispose();
         }
-        public Task<TUser> FindByIdAsync(int userID)
+        public Task<TUser> FindByIdAsync(string userID)
         {
             StoreUser _store = new StoreUser(_context);
             var user = _store.GetUser(userID);
