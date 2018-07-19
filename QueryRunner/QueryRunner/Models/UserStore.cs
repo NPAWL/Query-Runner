@@ -44,15 +44,15 @@ namespace QueryRunner.Models
 
         #region Implements IUserStore<TUser, Guid>
 
-        Task IUserStore<TUser, string>.CreateAsync(TUser user)
+        System.Threading.Tasks.Task IUserStore<TUser, string>.CreateAsync(TUser user)
         {
             throw new NotImplementedException();
         }
-        public Task CreateAsync(TUser user, String username)
+        public System.Threading.Tasks.Task CreateAsync(TUser user, String username)
         {
             throw new NotImplementedException();
         }
-        public Task DeleteAsync(TUser user)
+        public System.Threading.Tasks.Task DeleteAsync(TUser user)
         {
             throw new NotImplementedException();
         }
@@ -65,23 +65,23 @@ namespace QueryRunner.Models
             StoreUser _store = new StoreUser(_context);
             var user = _store.GetUser(userID);
             var result = new ApplicationUser(user);
-            return Task.FromResult(result as TUser);
+            return System.Threading.Tasks.Task.FromResult(result as TUser);
         }
         public Task<TUser> FindByNameAsync(string userName)
         {
             StoreUser _store = new StoreUser(_context);
             var user = _store.GetUser(userName);
             var result = new ApplicationUser(user);
-            return Task.FromResult(result as TUser);
+            return System.Threading.Tasks.Task.FromResult(result as TUser);
         }
-        public Task UpdateAsync(TUser user)
+        public System.Threading.Tasks.Task UpdateAsync(TUser user)
         {
             throw new NotImplementedException();
         }
         #endregion
 
         #region Implements IUserPasswordStore<TUser, Guid>         
-        public Task SetPasswordHashAsync(TUser user, string passwordHash)
+        public System.Threading.Tasks.Task SetPasswordHashAsync(TUser user, string passwordHash)
         {
             throw new NotImplementedException();
         }
