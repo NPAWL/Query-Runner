@@ -12,7 +12,7 @@ using QueryRunner.App_Start;
 
 namespace QueryRunner
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
