@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+</head>
+<body ng-app="Screen" ng-cloak>
+
+    @{Html.RenderPartial("../Shared/Header");}
+
+    <div class="adminBody">
+        <main layout="row" flex style="margin: 0px 40px;">
+            <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="true">
+                <md-content layout-padding>
+                    <md-toolbar style="min-height: 30px;">
+                        <h1 class="md-toolbar-tools" style="height: 30px !important">Manage Admin</h1>
+                    </md-toolbar>
+                    <md-content style="margin-left: 40px">
+                        <md-list-item ng-click="null">
+                            <p>Add Admin</p>
+                        </md-list-item>
+                        <md-list-item ng-click="null">
+                            <p>Remove Admin</p>
+                        </md-list-item>
+                        <md-list-item ng-click="null">
+                            <p>Edit Profile</p>
+                        </md-list-item>
+                    </md-content>
+                    <md-toolbar style="min-height: 30px;">
+                        <h1 class="md-toolbar-tools" style="height: 30px !important">Manage Tests</h1>
+                    </md-toolbar>
+                    <md-content style="margin-left: 40px">
+                        <md-list-item ng-click="null">
+                            <p>View Last Test</p>
+                        </md-list-item>
+                        <md-list-item ng-click="null">
+                            <p>Create Test</p>
+                        </md-list-item>
+                        <md-list-item ng-click="null">
+                            <p>View Tests</p>
+                        </md-list-item>
+                        <md-list-item ng-click="null">
+                            <p>View Students</p>
+                        </md-list-item>
+                        <md-list-item ng-click="null">
+                            <p>View Test Resources</p>
+                        </md-list-item>
+                    </md-content>
+                    <md-toolbar style="min-height: 30px;">
+                        <h1 class="md-toolbar-tools" style="height: 30px !important">Other</h1>
+                    </md-toolbar>
+                    <md-content style="margin-left: 40px">
+                        <md-list-item ng-click="null">
+                            <p>Enter Student Mode</p>
+                        </md-list-item>
+                    </md-content>
+                </md-content>
+
+            </md-sidenav>
+
+            <md-content id="adminBody" layout="row">
+                @RenderBody()
+            </md-content>
+
+            <md-content flex="20" md-whiteframe="3" style="background-color: white;">
+                <md-input-container layout="column">
+                    <h4 layout="row" layout-align="center center">Please Note That</h4>
+                    <textarea disabled rows="6" cols="50">
+You have 1 test who has no students!
+
+You have 7 falged questions that need your attention!
+
+Statistics:
+    * Set Tests: 4
+    * Written Tests: 3
+    * Registered Students: 146
+    * Overall Test Average: 79%
+                    </textarea>
+                </md-input-container>
+            </md-content>
+        </main>
+    </div>
+
+    @{Html.RenderPartial("../Shared/Footer");}
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/material")
+    @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+		angular.module('Screen', ['ngMaterial', 'ngMessages'])
+			.run(function () {
+				console.log('Screen: Login Screen')
+			});
+    </script>
+</body>
+</html>
