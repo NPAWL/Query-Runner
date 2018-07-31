@@ -26,10 +26,10 @@ namespace Library.Stores
             return model.Get(_ctx);
         }
 
-        public ModelToken GetToken(string tokenstring)
+        public ModelToken GetToken(int tokenid)
         {
             var model = new ModelToken();
-            return model.Get(_ctx).FirstOrDefault(x => x.TokenString == tokenstring);
+            return model.Get(_ctx).FirstOrDefault(x => x.TokenID == tokenid);
         }
 
         public IQueryable<ModelToken> GetTokensByUsername(string username)
@@ -42,6 +42,12 @@ namespace Library.Stores
         {
             var model = new ModelToken();
             return model.Get(_ctx).Where(x => x.TestID == testid);
+        }
+
+        public IQueryable<ModelToken> GetTokensByTokenString(string tokenstring)
+        {
+            var model = new ModelToken();
+            return model.Get(_ctx).Where(x => x.TokenString == tokenstring);
         }
 
         public void CreateToken(ModelToken model)
