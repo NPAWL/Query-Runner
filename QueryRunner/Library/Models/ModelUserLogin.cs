@@ -34,7 +34,7 @@ namespace Library.Models
         {
             return new UserLogin
             {
-                LoginID = LoginID,
+                //LoginID = LoginID,
                 Username = Username,
                 LoginTimestamp = LoginTimestamp,
                 LogoutTimestamp = LogoutTimestamp,
@@ -45,7 +45,7 @@ namespace Library.Models
 
         public void Update(UserLogin userlogin)
         {
-            userlogin.LoginID = LoginID;
+            //userlogin.LoginID = LoginID;
             userlogin.Username = Username;
             userlogin.LoginTimestamp = LoginTimestamp;
             userlogin.LogoutTimestamp = LogoutTimestamp;

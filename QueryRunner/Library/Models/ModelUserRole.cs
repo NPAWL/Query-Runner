@@ -30,7 +30,7 @@ namespace Library.Models
         {
             return new UserRole
             {
-                URID = URID,
+                //URID = URID,
                 RoleName = RoleName,
                 Username = Username,
                 UserRoleActive = UserRoleActive
@@ -39,7 +39,7 @@ namespace Library.Models
 
         public void Update(UserRole userrole)
         {
-            userrole.URID = URID;
+            //userrole.URID = URID;
             userrole.RoleName = RoleName;
             userrole.Username = Username;
             userrole.UserRoleActive = UserRoleActive;

@@ -36,7 +36,7 @@ namespace Library.Models
         {
             return new Test
             {
-                TestID = TestID,
+                //TestID = TestID,
                 TestName = TestName,
                 Username = Username,
                 Date = Date,
@@ -48,7 +48,7 @@ namespace Library.Models
 
         public void Update(Test test)
         {
-            test.TestID = TestID;
+            //test.TestID = TestID;
             test.TestName = TestName;
             test.Username = Username;
             test.Date = Date;

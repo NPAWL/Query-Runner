@@ -13,16 +13,18 @@ namespace Library.Models
         public int TestID { get; set; }
         public string Instruction { get; set; }
         public bool QuestionActive { get; set; }
+        public string QuestionAnswer { get; set; }
 
         internal IQueryable<ModelQuestion> Get(QueryRunnerEntities context)
         {
             return from question in context.Questions
                    select new ModelQuestion
                    {
-                       QuestionID = question.QuestionID,
+                       //QuestionID = question.QuestionID,
                        TestID = question.TestID,
                        Instruction = question.Instruction,
-                       QuestionActive = question.QuestionActive
+                       QuestionActive = question.QuestionActive,
+                       QuestionAnswer = question.QuestionAnswer
                    };
         }
 
@@ -30,19 +32,21 @@ namespace Library.Models
         {
             return new Question
             {
-                QuestionID = QuestionID,
+                //QuestionID = QuestionID,
                 TestID = TestID,
                 Instruction = Instruction,
-                QuestionActive = QuestionActive
+                QuestionActive = QuestionActive,
+                QuestionAnswer = QuestionAnswer
             };
         }
 
         public void Update(Question question)
         {
-            question.QuestionID = QuestionID;
+            //question.QuestionID = QuestionID;
             question.TestID = TestID;
             question.Instruction = Instruction;
             question.QuestionActive = QuestionActive;
+            question.QuestionAnswer = QuestionAnswer;
         }
     }
 }

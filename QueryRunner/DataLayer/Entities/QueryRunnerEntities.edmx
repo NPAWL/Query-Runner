@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QueryRunnerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QueryRunnerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Question">
           <Key>
             <PropertyRef Name="QuestionID" />
@@ -13,6 +13,7 @@
           <Property Name="TestID" Type="int" Nullable="false" />
           <Property Name="Instruction" Type="nvarchar(max)" Nullable="false" />
           <Property Name="QuestionActive" Type="bit" Nullable="false" />
+          <Property Name="QuestionAnswer" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -47,7 +48,7 @@
         </EntityType>
         <EntityType Name="Token">
           <Key>
-            <PropertyRef Name="TokenString" />
+            <PropertyRef Name="TokenID" />
           </Key>
           <Property Name="TokenString" Type="char" MaxLength="100" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -55,6 +56,7 @@
           <Property Name="CreatedTime" Type="datetime" Nullable="false" />
           <Property Name="ExpiredTime" Type="datetime" Nullable="false" />
           <Property Name="TokenActive" Type="bit" Nullable="false" />
+          <Property Name="TokenID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -238,8 +240,7 @@
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QueryRunnerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -253,6 +254,7 @@
           <Property Name="QuestionActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Test" Relationship="Self.FK_Question_Test" FromRole="Question" ToRole="Test" />
           <NavigationProperty Name="StudentAnswers" Relationship="Self.FK_StudentAnswer_Question" FromRole="Question" ToRole="StudentAnswer" />
+          <Property Name="QuestionAnswer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -293,7 +295,7 @@
         </EntityType>
         <EntityType Name="Token">
           <Key>
-            <PropertyRef Name="TokenString" />
+            <PropertyRef Name="TokenID" />
           </Key>
           <Property Name="TokenString" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -303,6 +305,7 @@
           <Property Name="TokenActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Test" Relationship="Self.FK_Token_Test" FromRole="Token" ToRole="Test" />
           <NavigationProperty Name="User" Relationship="Self.FK_Token_User" FromRole="Token" ToRole="User" />
+          <Property Name="TokenID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -503,6 +506,7 @@
           <EntitySetMapping Name="Questions">
             <EntityTypeMapping TypeName="QueryRunnerModel.Question">
               <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="QuestionAnswer" ColumnName="QuestionAnswer" />
                 <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
                 <ScalarProperty Name="TestID" ColumnName="TestID" />
                 <ScalarProperty Name="Instruction" ColumnName="Instruction" />
@@ -547,6 +551,7 @@
           <EntitySetMapping Name="Tokens">
             <EntityTypeMapping TypeName="QueryRunnerModel.Token">
               <MappingFragment StoreEntitySet="Token">
+                <ScalarProperty Name="TokenID" ColumnName="TokenID" />
                 <ScalarProperty Name="TokenString" ColumnName="TokenString" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="TestID" ColumnName="TestID" />

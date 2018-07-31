@@ -36,7 +36,7 @@ namespace Library.Models
         {
             return new StudentAnswer
             {
-                SAID = SAID,
+                //SAID = SAID,
                 QuestionID = QuestionID,
                 Username = Username,
                 Answer = Answer,
@@ -48,7 +48,7 @@ namespace Library.Models
 
         public void Update(StudentAnswer studentanswer)
         {
-            studentanswer.SAID = SAID;
+            //studentanswer.SAID = SAID;
             studentanswer.QuestionID = QuestionID;
             studentanswer.Username = Username;
             studentanswer.Answer = Answer;

@@ -20,6 +20,7 @@ namespace DataLayer.Entities
         public System.DateTime CreatedTime { get; set; }
         public System.DateTime ExpiredTime { get; set; }
         public bool TokenActive { get; set; }
+        public int TokenID { get; set; }
     
         public virtual Test Test { get; set; }
         public virtual User User { get; set; }

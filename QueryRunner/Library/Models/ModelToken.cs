@@ -15,6 +15,7 @@ namespace Library.Models
         public DateTime CreatedTime { get; set; }
         public DateTime ExpiredTime { get; set; }
         public bool TokenActive { get; set; }
+        public int TokenID { get; set; }
 
         internal IQueryable<ModelToken> Get(QueryRunnerEntities context)
         {
@@ -26,7 +27,8 @@ namespace Library.Models
                        TestID = token.TestID,
                        CreatedTime = token.CreatedTime,
                        ExpiredTime = token.ExpiredTime,
-                       TokenActive = token.TokenActive
+                       TokenActive = token.TokenActive,
+                       TokenID = token.TokenID
                    };
         }
 
@@ -39,7 +41,8 @@ namespace Library.Models
                 TestID = TestID,
                 CreatedTime = CreatedTime,
                 ExpiredTime = ExpiredTime,
-                TokenActive = TokenActive
+                TokenActive = TokenActive//,
+                //TokenID = TokenID
             };
         }
 
@@ -51,6 +54,7 @@ namespace Library.Models
             token.CreatedTime = CreatedTime;
             token.ExpiredTime = ExpiredTime;
             token.TokenActive = TokenActive;
+            //token.TokenID = TokenID;
         }
     }
 }
