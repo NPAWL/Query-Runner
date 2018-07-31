@@ -1,49 +1,30 @@
 ﻿
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
 }
 @model QueryRunner.Models.LoginViewModel
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--<link rel="shortcut icon" href="~/Content/Images/<>.png" type="image/x-icon">-->
-    <link href="~/Content/Site.css" rel="stylesheet" />
-    <title>Login</title>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/modernizr")
-</head>
-<body>
-    <div class="center">
-        <div class="login contentArea">
-            <div class="login-screen">
-                <div class="login-title">
-                    <!--<img src="~/Content/Images/<>.png" class="login-image" />-->
-                </div>
-                <div class="login-form">
+<main flex>
+    <md-content class="md-padding">
+        <div layout="row" layout-align="center center" layout-xs="column">
+            <md-card flex flex-gt-xs="30">
+                <h2 layout="row" layout-align="center center">Login</h2>
+                <md-card-content class="loginBackground">
                     @using (Html.BeginForm())
                     {
                         @Html.AntiForgeryToken()
                         <div class="form-group text-center">
-
                             <input class="form-control, login-input" data-val="true" data-val-required="The Username field is required." id="Username" name="Username" placeholder="Username" type="text" value="" />
                             <span class="field-validation-valid text-danger" data-valmsg-for="Username" data-valmsg-replace="true"></span>
-
                         </div>
                         <div class="form-group text-center">
-
-
                             <input class="form-control, login-input" data-val="true" data-val-required="The Password field is required." id="Password" name="Password" placeholder="Password" type="password" />
                             <span class="field-validation-valid text-danger" data-valmsg-for="Password" data-valmsg-replace="true"></span>
-
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Login" class="btn btn-primary login-button" />
                         </div>
                         <div class="form-group">
-
                             <div class="checkbox">
                                 <input data-val="true" data-val-required="The Remember me? field is required." id="RememberMe" name="RememberMe" type="checkbox" value="true" /><input name="RememberMe" type="hidden" value="false" />
                                 <label for="RememberMe">Remember me?</label>
@@ -53,9 +34,59 @@
                             <a href="~/User/ForgotPassword">Forgot password</a>
                         </p>
                     }
-                </div>
-            </div>
+                </md-card-content>
+
+                <md-card-content layout="row" layout-align="center center">
+                    <md-button class="btnBlue">Login</md-button>
+                </md-card-content>
+            </md-card>
         </div>
-    </div>
-</body>
-</html>
+    </md-content>
+</main>
+
+
+<!--<main flex>
+    <md-content class="md-padding">
+        <div layout="row" layout-align="center center" layout-xs="column">
+            <md-card flex flex-gt-xs="30">
+                <h2 layout="row" layout-align="center center">Login</h2>
+
+                <md-card-content class="loginBackground">
+                    <form name="loginForm">
+                        <md-input-container>
+                            <md-button class="btnBlue">Login</md-button>
+                        </md-input-container>
+                        <md-input-container layout="column">
+                            <label>Username</label>
+                            <input name="username" ng-model="username" required md-maxlength="10" minlength="10">
+                            <div ng-messages="loginForm.username.$error" ng-show="loginForm.username.$dirty">
+                                <div ng-message="required">This is required!</div>
+                                <div ng-message="md-maxlength">That's too long!</div>
+                                <div ng-message="minlength">That's too short!</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container layout="column">
+                            <label>Password</label>
+                            <input name="password" ng-model="password" required md-maxlength="100"></input>
+                            <div ng-messages="loginForm.password.$error" ng-show="loginForm.password.$dirty">
+                                <div ng-message="required">This is required!</div>
+                                <div ng-message="md-maxlength">That's too long!</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container layout="column">
+                            <label>Computer Number</label>
+                            <input name="compNum" ng-model="compNum"></input>
+                            <div ng-messages="loginForm.compNum.$error" ng-show="loginForm.compNum.$dirty">
+                                <div ng-message="md-maxlength">That's too long!</div>
+                            </div>
+                        </md-input-container>
+                    </form>
+                </md-card-content>
+
+                <md-card-content layout="row" layout-align="center center">
+                    <md-button class="btnBlue">Login</md-button>
+                </md-card-content>
+            </md-card>
+        </div>
+    </md-content>
+</main>-->
