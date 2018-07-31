@@ -1,0 +1,61 @@
+﻿
+@{
+    Layout = null;
+}
+@model QueryRunner.Models.LoginViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--<link rel="shortcut icon" href="~/Content/Images/<>.png" type="image/x-icon">-->
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <title>Login</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="center">
+        <div class="login contentArea">
+            <div class="login-screen">
+                <div class="login-title">
+                    <!--<img src="~/Content/Images/<>.png" class="login-image" />-->
+                </div>
+                <div class="login-form">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group text-center">
+
+                            <input class="form-control, login-input" data-val="true" data-val-required="The Username field is required." id="Username" name="Username" placeholder="Username" type="text" value="" />
+                            <span class="field-validation-valid text-danger" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+
+                        </div>
+                        <div class="form-group text-center">
+
+
+                            <input class="form-control, login-input" data-val="true" data-val-required="The Password field is required." id="Password" name="Password" placeholder="Password" type="password" />
+                            <span class="field-validation-valid text-danger" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Login" class="btn btn-primary login-button" />
+                        </div>
+                        <div class="form-group">
+
+                            <div class="checkbox">
+                                <input data-val="true" data-val-required="The Remember me? field is required." id="RememberMe" name="RememberMe" type="checkbox" value="true" /><input name="RememberMe" type="hidden" value="false" />
+                                <label for="RememberMe">Remember me?</label>
+                            </div>
+                        </div>
+                        <p>
+                            <a href="~/User/ForgotPassword">Forgot password</a>
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
