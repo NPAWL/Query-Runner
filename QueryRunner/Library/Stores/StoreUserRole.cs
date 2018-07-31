@@ -42,6 +42,14 @@ namespace Library.Stores
             return model.Get(_ctx).FirstOrDefault(x => x.UserRoleActive == true && x.Username == username && x.RoleName == rolename);
         }
 
+        public IQueryable<ModelUserRole> GetUserRolesByUser(string username)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+                throw new Exception("An error occured and user could not be identified.");
+            var model = new ModelUserRole();
+            return model.Get(_ctx).Where(x => x.UserRoleActive == true && x.Username == username);
+        }
+
         public void CreateUserRole(ModelUserRole model)
         {
             using (var transaction = _ctx.Database.BeginTransaction())

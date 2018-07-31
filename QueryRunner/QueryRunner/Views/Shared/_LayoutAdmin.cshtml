@@ -11,8 +11,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
 </head>
 <body ng-app="Screen" ng-cloak>
-
-    @{Html.RenderPartial("../Shared/Header");}
+    <header>
+        <md-toolbar layout="row" md-scroll-shrink>
+            @{Html.RenderPartial("../Shared/Header");}
+            @{Html.RenderPartial("../Shared/LogOut");}
+        </md-toolbar>
+    </header>
 
     <div class="adminBody">
         <main layout="row" flex style="margin: 0px 40px;">
@@ -96,10 +100,10 @@ Statistics:
     @RenderSection("scripts", required: false)
 
     <script type="text/javascript">
-		angular.module('Screen', ['ngMaterial', 'ngMessages'])
-			.run(function () {
-				console.log('Screen: Login Screen')
-			});
+        angular.module('Screen', ['ngMaterial', 'ngMessages'])
+            .run(function () {
+                console.log('Screen: Login Screen')
+            });
     </script>
 </body>
 </html>

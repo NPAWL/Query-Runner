@@ -16,5 +16,6 @@ namespace Library.Interfaces
         void CreateUserRole(ModelUserRole model, string rolename, string username);
         void DeleteUserRole(ModelUserRole model);
         void UpdateUserRole(ModelUserRole model);
+        IQueryable<ModelUserRole> GetUserRolesByUser(string username);
     }
 }

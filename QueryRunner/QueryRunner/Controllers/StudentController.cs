@@ -8,21 +8,19 @@ using Library.Models;
 
 namespace QueryRunner.Controllers
 {
-    public class UserController : Controller
+    public class StudentController : Controller
     {
-        private IRole _roleStore;
         private IUser _userStore;
         private IUserRole _userRoleStore;
 
-        public UserController() { }
-        public UserController(IRole roleStore, IUser userStore, IUserRole userRoleStore)
+        public StudentController() { }
+        public StudentController(IUser userStore, IUserRole userRoleStore)
         {
-            _roleStore = roleStore;
             _userStore = userStore;
             _userRoleStore = userRoleStore;
         }
 
-        // GET: User
+        // GET: TestStudent
         public ActionResult Index()
         {
             return View();

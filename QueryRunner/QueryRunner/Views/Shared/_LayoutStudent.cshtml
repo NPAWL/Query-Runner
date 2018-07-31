@@ -11,8 +11,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
 </head>
 <body ng-app="Screen" ng-cloak>
-
-    @{Html.RenderPartial("../Shared/Header");}
+    <header>
+        <md-toolbar layout="row" md-scroll-shrink>
+            @{Html.RenderPartial("../Shared/Header");}
+            @{Html.RenderPartial("../Shared/LogOut");}
+        </md-toolbar>
+    </header>
 
     <div class="container body-content">
         @RenderBody()

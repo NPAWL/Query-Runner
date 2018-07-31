@@ -49,15 +49,16 @@ namespace QueryRunner.Controllers
             {
                 return View(model);
             }
-            var user = UserManager.FindByName(model.Username.Trim());
-            if (model.Password == user.PasswordHash)
+            var user = UserManager.FindByName(model.Username.Trim()); 
+            if (model.Password == user.PasswordHash && user.UserActive)
             {
                 SignInManager.SignIn(user, model.RememberMe, false);
                 if (string.IsNullOrEmpty(returnUrl))
                 {
                     returnUrl = "/Home/Index";
                 }
-                return RedirectToLocal(returnUrl);
+                return RedirectToAction("FilterUserType", "Home", new { username = model.Username });
+                //return RedirectToLocal(returnUrl);
             }
             else
             {
@@ -83,7 +84,7 @@ namespace QueryRunner.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         protected override void Dispose(bool disposing)

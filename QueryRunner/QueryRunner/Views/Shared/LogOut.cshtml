@@ -1,0 +1,13 @@
+﻿<md-content layout="row" class="headerContent">
+    <md-content layout="column" layout-align="center center" class="headerContent">
+        <label>Camp, Jeremy</label>
+        <label>s246819442</label>
+        <label>Computer: 4-09</label>
+    </md-content>
+    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <md-button type="submit">Log Out</md-button>
+    }
+
+</md-content>
