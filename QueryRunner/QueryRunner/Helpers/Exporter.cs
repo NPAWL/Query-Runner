@@ -10,7 +10,7 @@ namespace QueryRunner.Helpers
 {
     public class Exporter
     {
-        public static void exportToTextFile(HttpResponseBase response, StudentAnswer[] lines, double mark)
+        public static void ExportToTextFile(HttpResponseBase response, StudentAnswer[] lines, double mark)
         {
             response.Clear();
             response.AddHeader("content-disposition", "attachment; filename=testfile.txt");
