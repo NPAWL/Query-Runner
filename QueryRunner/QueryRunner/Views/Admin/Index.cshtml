@@ -1,23 +1,88 @@
 ﻿
 @{
-    ViewBag.Title = "Dashboard";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+	ViewBag.Title = "Dashboard";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<md-content flex="20" md-whiteframe="3" style="background-color: white;">
-    <md-input-container layout="column">
-        <h4 layout="row" layout-align="center center">Please Note That</h4>
-        <textarea disabled rows="6" cols="50">
-You have 1 test who has no students!
+<md-content layout="column" flex layout-padding>
+	<md-content layout="row" flex>
+		<md-card layout="column" layout-align="top center" style="margin-top: 10px;" flex="33">
+			<md-toolbar style="min-height: 30px;">
+				<h1 class="md-toolbar-tools" style="height: 30px !important">Create Test</h1>
+			</md-toolbar>
+			<md-button class="md-raised btnWhite">Create Test</md-button>
+			<md-subheader class="md-primary md-hue-1">This will alter the selected test</md-subheader>
+			<md-button class="md-raised btnWhite">Set Questions</md-button>
+			<md-button class="md-raised btnWhite">Upload Test Resources</md-button>
+			<md-button class="md-raised btnWhite">Load Students</md-button>
+		</md-card>
+		<md-card layout="column" layout-align="top center" style="margin-top: 10px" flex="33">
+			<md-toolbar style="min-height: 30px;">
+				<h1 class="md-toolbar-tools" style="height: 30px !important">View Latest Test</h1>
+			</md-toolbar>
+			<md-subheader class="md-primary md-hue-1">WRIV202, SEMTEST-2, 2018</md-subheader>
+			<md-button class="md-raised btnWhite">View Questions</md-button>
+			<md-button class="md-raised btnWhite">View Test Resources</md-button>
+			<md-button class="md-raised btnWhite">View Students</md-button>
+			<md-button class="md-raised btnWhite">Export marks</md-button>
+		</md-card>
+		<md-card layout="column" layout-align="top center" style="margin-top: 10px" flex="33">
+			<md-toolbar style="min-height: 30px;">
+				<h1 class="md-toolbar-tools" style="height: 30px !important">Old Tests</h1>
+			</md-toolbar>
+			<md-card>
+				<md-subheader class="md-primary md-hue-1">2018</md-subheader>
+				<md-button class="md-raised btnWhite">WRIV202, SEMTEST-1</md-button>
+			</md-card>
+			<md-card>
+				<md-subheader class="md-primary md-hue-1">2017</md-subheader>
+				<md-button class="md-raised btnWhite">WRIV202, SEMTEST-1</md-button>
+				<md-button class="md-raised btnWhite">WRIV202, SEMTEST-2</md-button>
+				<md-button class="md-raised btnWhite">WRIV202, EXAM</md-button>
+				<md-button class="md-raised btnWhite">WRIV202, REXAM</md-button>
+			</md-card>
+			<md-card>
+				<md-subheader class="md-primary md-hue-1">2016</md-subheader>
+				<md-button class="md-raised btnWhite">WRIV202, SEMTEST-1</md-button>
+				<md-button class="md-raised btnWhite">WRIV202, SEMTEST-2</md-button>
+				<md-button class="md-raised btnWhite">WRIV202, EXAM</md-button>
+			</md-card>
+		</md-card>
+	</md-content>
 
-You have 7 falged questions that need your attention!
+	<md-content hide class="md-padding" flex>
+		<div layout="row" layout-align="center center" layout-xs="column">
+			<md-card flex flex-gt-xs="50" class="md-wd">
+				<h2 layout="row" layout-align="center center">Children With flagged Questions</h2>
+				<md-card-content class="loginBackground">
+					<md-list-item flex>
+						<h3>Surname, name</h3>
+						<span flex></span>
+						<h3>Questions</h3>
+					</md-list-item>
+					<md-list-item flex ng-click="null">
+						Gibbs, LJ
+						<span flex></span>
+						3
+					</md-list-item>
+					<md-list-item flex ng-click="null">
+						Fornel, T
+						<span flex></span>
+						3,5
+					</md-list-item>
+					<md-list-item flex ng-click="null">
+						Denozo, T
+						<span flex></span>
+						1
+					</md-list-item>
+					<md-list-item flex ng-click="null">
+						Biship, E
+						<span flex></span>
+						1,2,3,4,5
+					</md-list-item>
 
-Statistics:
-    * Set Tests: 4
-    * Written Tests: 3
-    * Registered Students: 146
-    * Overall Test Average: 79%
-                    </textarea>
-    </md-input-container>
+				</md-card-content>
+			</md-card>
+		</div>
+	</md-content>
 </md-content>
-

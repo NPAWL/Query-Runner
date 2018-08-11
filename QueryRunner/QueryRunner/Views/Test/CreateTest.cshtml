@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "TestQuestions";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+	<div layout="column" layout-align="center" layout-xs="column">
+		<md-card flex flex-gt-xs="50" class="md-wd">
+			<h2 layout="row" layout-align="center center">Set Questions</h2>
+			<md-card-content class="loginBackground">
+				<md-whiteframe class="md-whiteframe-5dp" layout layout-align="center center">
+					<form>
+						<div layout="row" flex layout-align="center center">
+							<h3>Question 1</h3>
+							<span flex></span>
+							<p style="font-size: 12px">"Q1_SQL_Output.jpg" is loaded</p>
+							<md-button class="btnBlue">Load Image</md-button>
+						</div>
+
+						<md-content md-whiteframe="3" class="whiteBackground">
+							<md-input-container layout="column">
+								<label>Enter the Question</label>
+								<textarea rows="5" cols="50"></textarea>
+							</md-input-container>
+							<md-input-container layout="column">
+								<label>Enter the Answer</label>
+								<textarea rows="5" cols="50"></textarea>
+							</md-input-container>
+						</md-content>
+					</form>
+				</md-whiteframe>
+			</md-card-content>
+			<md-input-container>
+				<md-button class="btnBlue">+ Add Question</md-button>
+			</md-input-container>
+			<md-card-content layout="row" layout-align="center center">
+				<md-button class="btnBlue">Submit</md-button>
+			</md-card-content>
+		</md-card>
+	</div>
+
+

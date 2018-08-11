@@ -21,9 +21,37 @@ namespace QueryRunner.Controllers
         }
 
         // GET: Tests
-        public ActionResult Index()
+        public ActionResult CreateTest()
         {
             return View();
+        }
+
+        public ActionResult ViewTests()
+        {
+            return View();
+        }
+
+        public ActionResult ViewTest()
+        {
+            return View();
+        }
+
+        public ActionResult ViewTestResults()
+        {
+            return View();
+        }
+
+        public ActionResult Resources()
+        {      
+            return View();
+        }
+
+        public void exportStudentAnswers()
+        {
+            //need all answers here
+            //loops through all answers
+            //string name = lines[0].Username;
+            //Helpers.Exporter.exportToTextFile(Response, new DataLayer.Entities.StudentAnswer[5]);
         }
     }
 }

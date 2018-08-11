@@ -1,0 +1,69 @@
+﻿
+@{
+	ViewBag.Title = "AddAdmin";
+	ViewBag.header = "";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<md-card flex flex-gt-xs="50" class="md-w">
+	<h2 layout="row" layout-align="center center">@ViewBag.header</h2>
+	<md-card-content class="loginBackground">
+		<form name="newAdmin">
+
+			<div layout="row" flex>
+				<md-input-container layout="column" flex>
+					<label>Name</label>
+					<input name="Name" ng-model="Name" required md-maxlength="30">
+					<div ng-messages="newAdmin.Name.$error" ng-show="newAdmin.Name.$dirty">
+						<div ng-message="required">This is required!</div>
+						<div ng-message="md-maxlength">That's too long!</div>
+						<div ng-message="minlength">That's too short!</div>
+					</div>
+				</md-input-container>
+				<md-input-container layout="column" flex>
+					<label>Surname</label>
+					<input name="Surname" ng-model="Surname" required md-maxlength="30">
+					<div ng-messages="newAdmin.Surname.$error" ng-show="newAdmin.Surname.$dirty">
+						<div ng-message="required">This is required!</div>
+						<div ng-message="md-maxlength">That's too long!</div>
+						<div ng-message="minlength">That's too short!</div>
+					</div>
+				</md-input-container>
+			</div>
+			<div layout="row">
+				<md-input-container layout="column" flex>
+					<label>Username</label>
+					<input name="Username" ng-model="Username" required md-maxlength="30">
+					<div ng-messages="newAdmin.Username.$error" ng-show="newAdmin.Username.$dirty">
+						<div ng-message="required">This is required!</div>
+						<div ng-message="md-maxlength">That's too long!</div>
+						<div ng-message="minlength">That's too short!</div>
+					</div>
+				</md-input-container>
+				<md-input-container layout="column" flex>
+					<label>Password</label>
+					<input name="Password" ng-model="Password" required md-maxlength="30" minlength="10">
+					<div ng-messages="newAdmin.Password.$error" ng-show="newAdmin.Password.$dirty">
+						<div ng-message="required">This is required!</div>
+						<div ng-message="md-maxlength">That's too long!</div>
+						<div ng-message="minlength">That's too short!</div>
+					</div>
+				</md-input-container>
+			</div>
+			<md-input-container layout="column">
+				<label>Subject Detials</label>
+				<input name="subDetial" ng-model="subDetial" required md-maxlength="10">
+				<div ng-messages="newAdmin.subDetial.$error" ng-show="newAdmin.subDetial.$dirty">
+					<div ng-message="required">This is required!</div>
+					<div ng-message="md-maxlength">That's too long!</div>
+					<div ng-message="minlength">That's too short!</div>
+				</div>
+			</md-input-container>
+		</form>
+	</md-card-content>
+
+	<md-card-content layout="row" layout-align="center center">
+		<md-button class="btnBlue">Save</md-button>
+	</md-card-content>
+</md-card>
+

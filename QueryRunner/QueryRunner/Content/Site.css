@@ -25,9 +25,10 @@ textarea {
 
 
 .adminBody {
-    align-content: center;
-    padding-left: 5px;
-    padding-right: 5px;
+	align-content: center;
+	padding-left: 5px;
+	padding-right: 5px;
+	background-color: #dfdfdf;
 }
 
 md-content.md-default-theme, md-content {
@@ -56,6 +57,7 @@ md-card > h2 {
     background-color: #dfdfdf !important;
     color: rgb(63,81,181);
     width: 250px;
+	margin: 5px 0px;
 }
 
 .primeCol {

@@ -208,6 +208,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Exporter.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\IdentityModel.cs" />
     <Compile Include="Models\UserStore.cs" />
@@ -310,10 +311,17 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Shared\LogOut.cshtml" />
+    <Content Include="Views\Admin\AddAdmin.cshtml" />
+    <Content Include="Views\Admin\DelAdmin.cshtml" />
+    <Content Include="Views\Test\CreateTest.cshtml" />
+    <Content Include="Views\Student\ListStudents.cshtml" />
+    <Content Include="Views\Test\ViewTests.cshtml" />
+    <Content Include="Views\Test\ViewTest.cshtml" />
+    <Content Include="Views\Test\Resources.cshtml" />
+    <Content Include="Views\Test\ViewTestResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Test\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>

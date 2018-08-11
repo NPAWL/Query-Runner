@@ -25,5 +25,10 @@ namespace QueryRunner.Controllers
         {
             return View();
         }
+
+        public ActionResult ListStudents()
+        {
+            return View();
+        }
     }
 }
