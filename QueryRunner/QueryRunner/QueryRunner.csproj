@@ -208,7 +208,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\Exporter.cs" />
+    <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\IdentityModel.cs" />
     <Compile Include="Models\StudentViewModel.cs" />

@@ -29,6 +29,7 @@ namespace Library.Stores
         public ModelQuestion GetQuestion(int qid)
         {
             var model = new ModelQuestion();
+            List<ModelQuestion> temp = model.Get(_ctx).ToList();
             return model.Get(_ctx).FirstOrDefault(x => x.QuestionID == qid);
         }
 
@@ -37,6 +38,13 @@ namespace Library.Stores
             var model = new ModelQuestion();
             return model.Get(_ctx).Where(x => x.TestID == testid);
         }
+
+
+        public bool isQuestionInTest(IQueryable<ModelQuestion> questions, int questionID)
+        {
+            return questions.Contains(GetQuestion(questionID));
+        }
+
 
         public void CreateQuestion(ModelQuestion model)
         {

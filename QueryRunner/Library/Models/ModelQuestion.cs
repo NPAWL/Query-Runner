@@ -25,7 +25,8 @@ namespace Library.Models
                        TestID = question.TestID,
                        Instruction = question.Instruction,
                        QuestionActive = question.QuestionActive,
-                       QuestionAnswer = question.QuestionAnswer
+                       QuestionAnswer = question.QuestionAnswer,
+                       MaxMark = question.MaxMark
                    };
         }
 

@@ -57,8 +57,19 @@ namespace Library.Stores
             var model = new ModelStudentAnswer();
             StoreQuestion questionStore = new StoreQuestion(_ctx);
             IQueryable<ModelQuestion> questions = questionStore.GetQuestionsByTest(testid);
-            return model.Get(_ctx).Where(x => x.Username == username && questions.Contains(questionStore.GetQuestion(x.QuestionID)));
-        }  
+            List<ModelQuestion> qest = questions.ToList();
+            List<ModelStudentAnswer> temp1 = model.Get(_ctx).Where(x => x.Username == username).ToList();
+            List<ModelStudentAnswer> temp2 = model.Get(_ctx).Where(x => x.Username == username).Where(x => questionStore.isQuestionInTest(questions,x.QuestionID)).ToList(); // questions.ToList().Contains(questionStore.GetQuestion(x.QuestionID))).ToList();
+
+
+            return model.Get(_ctx).Where(x => x.Username == username).Where(x => questionStore.isQuestionInTest(questions, x.QuestionID));
+        }
+
+        private bool checkit(IQueryable<ModelQuestion> questions, StoreQuestion questionStore, ModelStudentAnswer x)
+        {
+            return questions.Contains(questionStore.GetQuestion(x.QuestionID));
+        }
+
 
         public void CreateStudentAnswer(ModelStudentAnswer model)
         {

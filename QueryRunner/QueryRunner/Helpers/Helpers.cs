@@ -31,7 +31,7 @@ namespace QueryRunner.Helpers
 
         public static void FEach<T>(IEnumerable<T> items, Action<T> action)
         {
-            foreach (var item in items)
+            foreach (T item in items)
                 action(item);
         }
 

@@ -20,11 +20,18 @@ namespace QueryRunner.Controllers
         private IStudentAnswer _studentAnswer;
 
         public StudentController() { }
-        public StudentController(IUser userStore, IUserRole userRoleStore)
+
+        public StudentController(IUser userStore, IUserRole userRoleStore, IToken tokenStore, ITest testStore, IQuestion question, IStudentAnswer studentAnswer)
         {
             _userStore = userStore;
             _userRoleStore = userRoleStore;
+            _tokenStore = tokenStore;
+            _testStore = testStore;
+            _question = question;
+            _studentAnswer = studentAnswer;
         }
+
+
 
         // GET: TestStudent
         [Authorize]
@@ -33,6 +40,7 @@ namespace QueryRunner.Controllers
             List<DisplayStudentTestsModel> testList = new List<DisplayStudentTestsModel>();
             try
             {
+                IToken temp = _tokenStore;
                 List<ModelToken> curToken = _tokenStore.GetTokensByUsername(User.Identity.Name).ToList();
                 curToken.ForEach(token =>
                 {
@@ -40,10 +48,16 @@ namespace QueryRunner.Controllers
                     ModelTest curTest = _testStore.GetTest(token.TestID);
                     cur.TestName = curTest.TestName;
                     cur.Date = curTest.StartTime;
-                    cur.Mark = SumStudAnswerMarks(_studentAnswer.GetStudentAnswersByTest(token.TestID)) + " / " + SumTestMarks(_question.GetQuestionsByTest(token.TestID));
+
+                    var helpme = _studentAnswer.GetStudentAnswersByStudentByTest(User.Identity.Name, token.TestID);
+
+
+                    String markStud = SumStudAnswerMarks(_studentAnswer.GetStudentAnswersByStudentByTest(User.Identity.Name, token.TestID)) ?? "n/a";
+                    String markTest = SumTestMarks(_question.GetQuestionsByTest(token.TestID)) ?? "n/a";
+                    cur.Mark = markStud + " / " + markTest;
                     testList.Add(cur);
                 });
-    
+
             }
             catch (NullReferenceException e)
             {
@@ -63,15 +77,39 @@ namespace QueryRunner.Controllers
         private String SumTestMarks(IQueryable<ModelQuestion> list)
         {
             int sum = 0;
-            Helper.FEach(list, x => sum += x.MaxMark);
-            return sum.ToString();
+            try
+            {
+                List<ModelQuestion> temp = list.ToList<ModelQuestion>();
+                if (list.Count() == 0) return null;
+                foreach (ModelQuestion cur in list)
+                {
+                    sum += cur.MaxMark;
+                }
+                return sum.ToString();
+            }
+            catch (NotSupportedException e)
+            {
+                return null;
+            }
         }
 
         private String SumStudAnswerMarks(IQueryable<ModelStudentAnswer> list)
         {
             int sum = 0;
-            Helper.FEach(list, x => sum += x.MarkObtained);
-            return sum.ToString();
+            try
+            {
+                List<ModelStudentAnswer> temp = list.ToList<ModelStudentAnswer>();
+                if (list == null || list.Count() == 0) return null;
+                foreach (ModelStudentAnswer cur in list)
+                {
+                    sum += cur.MarkObtained;
+                }
+                return sum.ToString();
+            }
+            catch (NotSupportedException e)
+            {
+                return null;
+            }
         }
     }
 }
