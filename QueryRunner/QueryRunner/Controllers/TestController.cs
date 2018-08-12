@@ -31,6 +31,8 @@ namespace QueryRunner.Controllers
             return View();
         }
 
+        //Student view test
+        [Authorize]
         public ActionResult ViewTest()
         {
             return View();

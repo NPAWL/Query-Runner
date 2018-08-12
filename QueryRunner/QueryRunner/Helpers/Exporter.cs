@@ -1,4 +1,5 @@
 ﻿using DataLayer.Entities;
+using Library.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace QueryRunner.Helpers
 {
-    public class Exporter
+    public class Helper
     {
         public static void ExportToTextFile(HttpResponseBase response, StudentAnswer[] lines, double mark)
         {
@@ -26,5 +27,13 @@ namespace QueryRunner.Helpers
             }
             response.End();
         }
+   
+
+        public static void FEach<T>(IEnumerable<T> items, Action<T> action)
+        {
+            foreach (var item in items)
+                action(item);
+        }
+
     }
 }

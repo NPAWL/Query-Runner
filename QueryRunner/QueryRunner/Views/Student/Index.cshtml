@@ -1,11 +1,36 @@
-﻿
+﻿@model List<QueryRunner.Models.DisplayStudentTestsModel>
+
 @{
-    ViewBag.Title = "Dashboard";
-    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_LayoutStudent.cshtml";
 }
 
-<md-content flex="20" md-whiteframe="3" style="background-color: white;">
-    <md-input-container layout="column">
-        student area
-    </md-input-container>
-</md-content>
+<table class="table">
+
+	@if (Model == null || Model.Count <= 0)
+	{
+		<p>It seems that you dont have any tests to your name. ENJOY YOUR LIFE!</p>
+	}
+	else
+	{
+		foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.TestName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Date)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Mark)
+				</td>
+				<td>
+					@Html.ActionLink("GOTO", "GotoTest", new { id = item.TestID }) |
+				</td>
+			</tr>
+		}
+	}
+
+
+</table>
