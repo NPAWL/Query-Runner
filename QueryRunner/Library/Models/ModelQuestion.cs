@@ -12,6 +12,7 @@ namespace Library.Models
         public int QuestionID { get; set; }
         public int TestID { get; set; }
         public string Instruction { get; set; }
+        public int MaxMark { get; set; }
         public bool QuestionActive { get; set; }
         public string QuestionAnswer { get; set; }
 
@@ -36,7 +37,8 @@ namespace Library.Models
                 TestID = TestID,
                 Instruction = Instruction,
                 QuestionActive = QuestionActive,
-                QuestionAnswer = QuestionAnswer
+                QuestionAnswer = QuestionAnswer,
+                MaxMark = MaxMark
             };
         }
 
@@ -47,6 +49,7 @@ namespace Library.Models
             question.Instruction = Instruction;
             question.QuestionActive = QuestionActive;
             question.QuestionAnswer = QuestionAnswer;
+            question.MaxMark = MaxMark;
         }
     }
 }

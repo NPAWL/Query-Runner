@@ -21,6 +21,7 @@ namespace DataLayer.Entities
         public bool Flagged { get; set; }
         public short Type { get; set; }
         public bool StudentAnswerActive { get; set; }
+        public int MarkObtained { get; set; }
     
         public virtual Question Question { get; set; }
         public virtual User User { get; set; }

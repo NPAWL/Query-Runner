@@ -25,6 +25,7 @@ namespace DataLayer.Entities
         public string Instruction { get; set; }
         public bool QuestionActive { get; set; }
         public string QuestionAnswer { get; set; }
+        public int MaxMark { get; set; }
     
         public virtual Test Test { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

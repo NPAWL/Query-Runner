@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'E:\NMMU\WRRV\QueryRunner\QueryRunner\DataLayer\Entities\QueryRunnerEntities.edmx'. 
+﻿// T4 code generation is enabled for model 'F:\Query-Runner\QueryRunner\DataLayer\Entities\QueryRunnerEntities.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

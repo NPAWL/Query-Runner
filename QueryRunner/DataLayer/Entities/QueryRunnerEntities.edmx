@@ -12,6 +12,7 @@
           <Property Name="QuestionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TestID" Type="int" Nullable="false" />
           <Property Name="Instruction" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MaxMark" Type="int" Nullable="false" />
           <Property Name="QuestionActive" Type="bit" Nullable="false" />
           <Property Name="QuestionAnswer" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
@@ -29,6 +30,7 @@
           <Property Name="SAID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="QuestionID" Type="int" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MarkObtained" Type="int" Nullable="false" />
           <Property Name="Answer" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Flagged" Type="bit" Nullable="false" />
           <Property Name="Type" Type="smallint" Nullable="false" />
@@ -255,6 +257,7 @@
           <NavigationProperty Name="Test" Relationship="Self.FK_Question_Test" FromRole="Question" ToRole="Test" />
           <NavigationProperty Name="StudentAnswers" Relationship="Self.FK_StudentAnswer_Question" FromRole="Question" ToRole="StudentAnswer" />
           <Property Name="QuestionAnswer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MaxMark" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -277,6 +280,7 @@
           <Property Name="StudentAnswerActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Question" Relationship="Self.FK_StudentAnswer_Question" FromRole="StudentAnswer" ToRole="Question" />
           <NavigationProperty Name="User" Relationship="Self.FK_StudentAnswer_User" FromRole="StudentAnswer" ToRole="User" />
+          <Property Name="MarkObtained" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Test">
           <Key>
@@ -506,6 +510,7 @@
           <EntitySetMapping Name="Questions">
             <EntityTypeMapping TypeName="QueryRunnerModel.Question">
               <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="MaxMark" ColumnName="MaxMark" />
                 <ScalarProperty Name="QuestionAnswer" ColumnName="QuestionAnswer" />
                 <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
                 <ScalarProperty Name="TestID" ColumnName="TestID" />
@@ -525,6 +530,7 @@
           <EntitySetMapping Name="StudentAnswers">
             <EntityTypeMapping TypeName="QueryRunnerModel.StudentAnswer">
               <MappingFragment StoreEntitySet="StudentAnswer">
+                <ScalarProperty Name="MarkObtained" ColumnName="MarkObtained" />
                 <ScalarProperty Name="SAID" ColumnName="SAID" />
                 <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />

@@ -12,6 +12,7 @@ namespace Library.Models
         public int SAID { get; set; }
         public int QuestionID { get; set; }
         public string Username { get; set; }
+        public int MarkObtained { get; set; }
         public string Answer { get; set; }
         public bool Flagged { get; set; }
         public short Type { get; set; }
@@ -28,7 +29,8 @@ namespace Library.Models
                        Answer = studentanswer.Answer,
                        Flagged = studentanswer.Flagged,
                        Type = studentanswer.Type,
-                       StudentAnswerActive = studentanswer.StudentAnswerActive
+                       StudentAnswerActive = studentanswer.StudentAnswerActive,
+                       MarkObtained = studentanswer.MarkObtained
                    };
         }
 
@@ -42,7 +44,8 @@ namespace Library.Models
                 Answer = Answer,
                 Flagged = Flagged,
                 Type = Type,
-                StudentAnswerActive = StudentAnswerActive
+                StudentAnswerActive = StudentAnswerActive,
+                MarkObtained = MarkObtained
             };
         }
 
@@ -55,6 +58,7 @@ namespace Library.Models
             studentanswer.Flagged = Flagged;
             studentanswer.Type = Type;
             studentanswer.StudentAnswerActive = StudentAnswerActive;
+            studentanswer.MarkObtained = MarkObtained;
         }
     }
 }
