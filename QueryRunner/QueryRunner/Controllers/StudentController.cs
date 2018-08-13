@@ -73,6 +73,11 @@ namespace QueryRunner.Controllers
             return View();
         }
 
+        public void GotoTest(int TestID)
+        {
+            RedirectToAction("ViewTest", "Test", TestID);
+        }
+
         private String SumTestMarks(IQueryable<ModelQuestion> list)
         {
             int sum = 0;
