@@ -21,7 +21,7 @@ namespace Library.Models
             return from question in context.Questions
                    select new ModelQuestion
                    {
-                       //QuestionID = question.QuestionID,
+                       QuestionID = question.QuestionID,
                        TestID = question.TestID,
                        Instruction = question.Instruction,
                        QuestionActive = question.QuestionActive,

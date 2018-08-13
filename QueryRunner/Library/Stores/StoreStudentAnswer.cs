@@ -40,10 +40,21 @@ namespace Library.Stores
 
         public IQueryable<ModelStudentAnswer> GetStudentAnswersByTest(int testid)
         {
+            //TODO: needs testing
             var model = new ModelStudentAnswer();
             StoreQuestion questionStore = new StoreQuestion(_ctx);
             IQueryable<ModelQuestion> questions = questionStore.GetQuestionsByTest(testid);
-            return model.Get(_ctx).Where(x => questions.Contains(questionStore.GetQuestion(x.QuestionID)));
+            List<ModelStudentAnswer> final = new List<ModelStudentAnswer>();
+            model.Get(_ctx).ToList().ForEach(cur =>
+            {
+                ModelQuestion qq = questionStore.GetQuestion(cur.QuestionID);
+                foreach (ModelQuestion curQQ in questions)
+                {
+                    if (curQQ.QuestionID == cur.QuestionID)
+                        final.Add(cur);
+                }
+            });
+            return final.AsQueryable();
         }
 
         public IQueryable<ModelStudentAnswer> GetStudentAnswersByQuestion(int qid)
@@ -56,20 +67,20 @@ namespace Library.Stores
         {
             var model = new ModelStudentAnswer();
             StoreQuestion questionStore = new StoreQuestion(_ctx);
-            IQueryable<ModelQuestion> questions = questionStore.GetQuestionsByTest(testid);
-            List<ModelQuestion> qest = questions.ToList();
-            List<ModelStudentAnswer> temp1 = model.Get(_ctx).Where(x => x.Username == username).ToList();
-            List<ModelStudentAnswer> temp2 = model.Get(_ctx).Where(x => x.Username == username).Where(x => questionStore.isQuestionInTest(questions,x.QuestionID)).ToList(); // questions.ToList().Contains(questionStore.GetQuestion(x.QuestionID))).ToList();
-
-
-            return model.Get(_ctx).Where(x => x.Username == username).Where(x => questionStore.isQuestionInTest(questions, x.QuestionID));
+            List<ModelQuestion> questions = questionStore.GetQuestionsByTest(testid).ToList();
+            List<ModelStudentAnswer> modelQuestion = model.Get(_ctx).Where(x => x.Username == username).ToList();
+            List<ModelStudentAnswer> final = new List<ModelStudentAnswer>();
+            modelQuestion.ForEach(cur =>
+            {
+                ModelQuestion qq = questionStore.GetQuestion(cur.QuestionID);
+                foreach (ModelQuestion curQQ in questions)
+                {
+                    if (curQQ.QuestionID == cur.QuestionID)
+                        final.Add(cur);
+                }
+            });
+            return final.AsQueryable();
         }
-
-        private bool checkit(IQueryable<ModelQuestion> questions, StoreQuestion questionStore, ModelStudentAnswer x)
-        {
-            return questions.Contains(questionStore.GetQuestion(x.QuestionID));
-        }
-
 
         public void CreateStudentAnswer(ModelStudentAnswer model)
         {
@@ -77,7 +88,7 @@ namespace Library.Stores
             {
                 try
                 {
-                    model.StudentAnswerActive = true;     
+                    model.StudentAnswerActive = true;
 
                     var entity = model.ToEntity();
 
@@ -100,7 +111,7 @@ namespace Library.Stores
             {
                 try
                 {
-                    model.StudentAnswerActive = true;     
+                    model.StudentAnswerActive = true;
                     model.Username = username;
                     model.QuestionID = qid;
 

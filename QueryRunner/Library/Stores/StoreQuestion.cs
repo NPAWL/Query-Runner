@@ -39,13 +39,6 @@ namespace Library.Stores
             return model.Get(_ctx).Where(x => x.TestID == testid);
         }
 
-
-        public bool isQuestionInTest(IQueryable<ModelQuestion> questions, int questionID)
-        {
-            return questions.Contains(GetQuestion(questionID));
-        }
-
-
         public void CreateQuestion(ModelQuestion model)
         {
             using (var transaction = _ctx.Database.BeginTransaction())

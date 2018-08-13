@@ -49,11 +49,10 @@ namespace QueryRunner.Controllers
                     cur.TestName = curTest.TestName;
                     cur.Date = curTest.StartTime;
 
-                    var helpme = _studentAnswer.GetStudentAnswersByStudentByTest(User.Identity.Name, token.TestID);
-
-
                     String markStud = SumStudAnswerMarks(_studentAnswer.GetStudentAnswersByStudentByTest(User.Identity.Name, token.TestID)) ?? "n/a";
-                    String markTest = SumTestMarks(_question.GetQuestionsByTest(token.TestID)) ?? "n/a";
+                    String markTest = "";
+                    if (!markStud.Equals("n/a"))
+                        markTest = SumTestMarks(_question.GetQuestionsByTest(token.TestID)) ?? "n/a";
                     cur.Mark = markStud + " / " + markTest;
                     testList.Add(cur);
                 });
