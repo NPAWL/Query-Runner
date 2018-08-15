@@ -8,6 +8,7 @@ namespace QueryRunner.Models
     public class TestViewModel
     {
         public int QuestionID;
+        public int QuestionNum;
         public Boolean chekced;
         public String QuestionText;
         public String QuestionAnswer;
@@ -15,6 +16,11 @@ namespace QueryRunner.Models
         public TestViewModel(int questionID)
         {
             QuestionID = questionID;
+        }
+
+        public TestViewModel Get()
+        {
+            return this;
         }
     }
 }

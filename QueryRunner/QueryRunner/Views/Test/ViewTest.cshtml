@@ -1,4 +1,4 @@
-﻿@model List<QueryRunner.Models.TestViewModel> 
+﻿@model List<QueryRunner.Models.TestViewModel>
 
 @{
 	ViewBag.Title = "ViewTest";
@@ -7,29 +7,20 @@
 
 <md-content class="bodyMargin" layout="column">
 	<md-content layout="row">
+
+
+
 		<div layout="column">
 			<md-list md-whiteframe="3" class="whiteBackground" layout-fit>
 				<md-subheader class="md-primary md-hue-1">Questions</md-subheader>
-				<md-list-item>
-					<p>Question 1</p>
-					<md-checkbox ng-model="message1.selected"></md-checkbox>
-				</md-list-item>
-				<md-list-item>
-					<p>Question 2</p>
-					<md-checkbox ng-model="message2.selected"></md-checkbox>
-				</md-list-item>
-				<md-list-item>
-					<p>Question 3</p>
-					<md-checkbox ng-model="message3.selected"></md-checkbox>
-				</md-list-item>
-				<md-list-item>
-					<p>Question 4</p>
-					<md-checkbox ng-model="message4.selected"></md-checkbox>
-				</md-list-item>
-				<md-list-item>
-					<p>Question 5</p>
-					<md-checkbox ng-model="message5.selected"></md-checkbox>
-				</md-list-item>
+				@foreach (var item in Model)
+				{
+					<md-list-item>
+						<p>
+							<a onclick="ShowQuestion(@Html.ValueFor(modelItem => item.QuestionID))">Question @item.QuestionNum</a>
+						</p>
+					</md-list-item>
+				}
 			</md-list>
 			<md-content md-whiteframe="3" class="whiteBackground">
 				<md-input-container layout="column">
@@ -40,41 +31,24 @@
 			</md-content>
 		</div>
 
+
 		<md-content>
-			<md-card>
-				<md-card-title>
-					<md-card-title-text>
-						<span class="md-title">Question 3</span>
-					</md-card-title-text>
-				</md-card-title>
-
-				<md-card-content>
-					<p>
-						Do this and this and this using that other thing. Don't forget to remember that other thing
-						which is maybe important. This is truely all up to you... i think...
-					</p>
-					<p>Sample output:</p>
-					<image src="../Res/question2.png"></image>
-					<p>Enter you answer HERE: </p>
-				</md-card-content>
-
-				<md-content md-whiteframe="3" class="whiteBackground">
-					<md-input-container layout="column">
-						<label>Enter your answer here:</label>
-						<textarea rows="6" cols="50"></textarea>
-					</md-input-container>
-				</md-content>
-
-				<md-card-actions layout="row" layout-align="start center">
-					<md-button class="btnBlue">Paste</md-button>
-					<span flex></span>
-					<md-button class="btnBlue">Submit Answer</md-button>
-					<md-button class="btnBlue">Clear</md-button>
-				</md-card-actions>
+			<md-card id="curQuestions">
+				@foreach (var item in Model)
+				{
+					@Html.Action("pViewQuestion","Test", new { Qid = item.QuestionID, Qnum = item.QuestionNum, Question = item.QuestionText });
+				}
 			</md-card>
-
 		</md-content>
 	</md-content>
 	<image ng-src="Res/database.PNG"></image>
 </md-content>
 
+<script>
+	function ShowQuestion(id) {
+		$(function () {
+			$(".showQuestion").css("display", "none");
+			$("#showQuestion" + id).css("display", "block");
+		});
+	}
+</script>

@@ -39,6 +39,8 @@ namespace QueryRunner.Controllers
             return View();
         }
 
+        private List<TestViewModel> TestQuestions;
+
         //Student view test
         [Authorize]
         public ActionResult ViewTest(int TestID)
@@ -48,15 +50,30 @@ namespace QueryRunner.Controllers
             //TODO: check if time is over
             ModelTest curTest = _testStore.GetTest(TestID);
             List<ModelQuestion> questions = _questionStore.GetQuestionsByTest(TestID).ToList();
+            List<TestViewModel> testQuestions = new List<TestViewModel>();
+            int iCount = 1;
             questions.ForEach(cur =>
             {
                 TestViewModel item = new TestViewModel(cur.QuestionID);
                 item.QuestionText = cur.Instruction;
                 item.chekced = false;
+                item.QuestionNum = iCount;
+                testQuestions.Add(item);
+                iCount++;
             });
-            return View(questions);
+            return View(testQuestions);
         }
 
+        [Authorize]
+        public ActionResult pViewQuestion(int Qid, int Qnum, String Question)
+        {
+            TestViewModel item = new TestViewModel(Qid);
+            item.QuestionText = Question;
+            item.QuestionNum = Qnum;     
+            return PartialView(item);
+        }
+
+        [Authorize]
         public ActionResult ViewTestResults()
         {
             return View();

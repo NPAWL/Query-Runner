@@ -73,9 +73,9 @@ namespace QueryRunner.Controllers
             return View();
         }
 
-        public void GotoTest(int TestID)
+        public ActionResult GotoTest(int TestID)
         {
-            RedirectToAction("ViewTest", "Test", TestID);
+            return RedirectToAction("ViewTest", "Test", new { TestID = TestID});
         }
 
         private String SumTestMarks(IQueryable<ModelQuestion> list)

@@ -1,0 +1,37 @@
+﻿<div class="showQuestion" id="showQuestion" style="display:none;">
+	@model QueryRunner.Models.TestViewModel
+
+	<md-card-title>
+		<md-card-title-text>
+			<span class="md-title">Question @Model.QuestionNum</span>
+		</md-card-title-text>
+	</md-card-title>
+
+	<md-card-content>
+		<p>@Model.QuestionText</p>
+		@*<p>Sample output:</p>
+			<image src="../Res/question2.png"></image>*@
+		<p>Enter you answer HERE: </p>
+	</md-card-content>
+
+	<md-content md-whiteframe="3" class="whiteBackground">
+		<md-input-container layout="column">
+			<label>Enter your answer here:</label>
+			<textarea rows="6" cols="50"></textarea>
+		</md-input-container>
+	</md-content>
+
+	<md-card-actions layout="row" layout-align="start center">
+		<md-button class="btnBlue">Paste</md-button>
+		<span flex></span>
+		<md-button class="btnBlue">Submit Answer</md-button>
+		<md-button class="btnBlue">Clear</md-button>
+	</md-card-actions>
+</div>
+
+<script>
+    $(function () {
+		$("#showQuestion").attr("id", "showQuestion" +@Model.QuestionID);
+    });
+</script>
+
