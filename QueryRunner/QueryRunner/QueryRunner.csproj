@@ -210,6 +210,7 @@
     </Compile>
     <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
+    <Compile Include="Models\AdminAddViewModel.cs" />
     <Compile Include="Models\IdentityModel.cs" />
     <Compile Include="Models\StudentViewModel.cs" />
     <Compile Include="Models\TestViewModel.cs" />
@@ -313,8 +314,6 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Shared\LogOut.cshtml" />
-    <Content Include="Views\Admin\AddAdmin.cshtml" />
-    <Content Include="Views\Admin\DelAdmin.cshtml" />
     <Content Include="Views\Test\CreateTest.cshtml" />
     <Content Include="Views\Student\ListStudents.cshtml" />
     <Content Include="Views\Test\ViewTests.cshtml" />
@@ -322,6 +321,9 @@
     <Content Include="Views\Test\Resources.cshtml" />
     <Content Include="Views\Test\ViewTestResults.cshtml" />
     <Content Include="Views\Test\pViewQuestion.cshtml" />
+    <Content Include="Views\Admin\Add.cshtml" />
+    <Content Include="Views\Admin\Delete.cshtml" />
+    <Content Include="Views\Admin\DeleteConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

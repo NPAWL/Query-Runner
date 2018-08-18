@@ -26,17 +26,47 @@ namespace QueryRunner.Controllers
             return View();
         }
 
-        // GET: AddAdmin
-        public ActionResult AddAdmin()
+        public ActionResult Add()
         {
-            ViewBag.header = "Add new Admin";
-            return View();
+            return PartialView();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Add(AdminAddViewModel model)
+        {
+          if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+          _userStore.CreateUser(model.ToDataModel(), "Admin");
+          return RedirectToAction("Index", "Admin");
         }
 
         // GET: AddAdmin
-        public ActionResult DelAdmin()
+        public ActionResult Delete()
         {
-            return View();
+            List<ModelUser> Admins = _userStore.GetAdminUsers();
+            return View(Admins);
+        }
+
+        public ActionResult DeleteConfirm(string username)
+        {
+            return PartialView(_userStore.GetUser(username));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirm(ModelUser model)
+        { 
+          if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Delete", "Admin");
+            }
+          List<ModelUserRole> UR = _userRoleStore.GetUserRolesByUser(model.Username).ToList();
+          Helper.FEach(UR, x => _userRoleStore.DeleteUserRole(x)); 
+          _userStore.DeleteUser(model);
+          return RedirectToAction("Delete", "Admin");;
         }
 
 
