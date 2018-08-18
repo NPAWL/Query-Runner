@@ -56,7 +56,7 @@ namespace QueryRunner.Controllers
             {
                 TestViewModel item = new TestViewModel(cur.QuestionID);
                 item.QuestionText = cur.Instruction;
-                item.chekced = false;
+                item.flagged = false;
                 item.QuestionNum = iCount;
                 testQuestions.Add(item);
                 iCount++;

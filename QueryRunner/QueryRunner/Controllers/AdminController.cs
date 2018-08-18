@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using Library.Interfaces;
 using Library.Models;
+using QueryRunner.Models;
+using QueryRunner.Helpers;
 
 namespace QueryRunner.Controllers
 {

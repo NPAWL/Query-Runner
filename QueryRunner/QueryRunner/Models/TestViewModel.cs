@@ -9,7 +9,7 @@ namespace QueryRunner.Models
     {
         public int QuestionID;
         public int QuestionNum;
-        public Boolean chekced;
+        public Boolean flagged;
         public String QuestionText;
         public String QuestionAnswer;
 
