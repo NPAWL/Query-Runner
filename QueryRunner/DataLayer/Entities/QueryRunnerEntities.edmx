@@ -59,6 +59,7 @@
           <Property Name="ExpiredTime" Type="datetime" Nullable="false" />
           <Property Name="TokenActive" Type="bit" Nullable="false" />
           <Property Name="TokenID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestComment" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -310,6 +311,7 @@
           <NavigationProperty Name="Test" Relationship="Self.FK_Token_Test" FromRole="Token" ToRole="Test" />
           <NavigationProperty Name="User" Relationship="Self.FK_Token_User" FromRole="Token" ToRole="User" />
           <Property Name="TokenID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -557,6 +559,7 @@
           <EntitySetMapping Name="Tokens">
             <EntityTypeMapping TypeName="QueryRunnerModel.Token">
               <MappingFragment StoreEntitySet="Token">
+                <ScalarProperty Name="TestComment" ColumnName="TestComment" />
                 <ScalarProperty Name="TokenID" ColumnName="TokenID" />
                 <ScalarProperty Name="TokenString" ColumnName="TokenString" />
                 <ScalarProperty Name="Username" ColumnName="Username" />

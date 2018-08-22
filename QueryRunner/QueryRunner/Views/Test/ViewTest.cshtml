@@ -1,4 +1,4 @@
-﻿@model QueryRunner.Models.TestViewModel
+﻿@model QueryRunner.Models.StudentTestQuestionAnswerModel
 
 @{
 	ViewBag.Title = "ViewTest";
@@ -34,7 +34,7 @@
 					<md-card-content>
 						<p id="qQuestion">@Html.DisplayTextFor(cur => cur.QuestionText)</p>
 						<p>Enter you answer HERE: </p>
-						<div style="width:500px" ng-model="QuestionAnswer">@Html.TextAreaFor(cur => cur.QuestionAnswer, 7, 300, null)</div>
+						<div id="qAnswer">@Html.TextAreaFor(cur => cur.QuestionAnswer, 7, 300, null)</div>
 					</md-card-content>
 
 
@@ -53,9 +53,5 @@
 </md-content>
 
 <script>
-	ShowQuestion = function (id, num, text, answer) {
-		$('#qTitle').text("Question " + num);
-		$('#qQuestion').text(text);
-		$('#qAnswer').text(answer);
-	}
+	$("#qAnswer").val("");
 </script>

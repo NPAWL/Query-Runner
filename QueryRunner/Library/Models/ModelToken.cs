@@ -11,6 +11,7 @@ namespace Library.Models
     {
         public string TokenString { get; set; }
         public string Username { get; set; }
+        public string TestComment { get; set; }
         public int TestID { get; set; }
         public DateTime CreatedTime { get; set; }
         public DateTime ExpiredTime { get; set; }
@@ -28,7 +29,8 @@ namespace Library.Models
                        CreatedTime = token.CreatedTime,
                        ExpiredTime = token.ExpiredTime,
                        TokenActive = token.TokenActive,
-                       TokenID = token.TokenID
+                       TokenID = token.TokenID,
+                       TestComment = token.TestComment
                    };
         }
 
@@ -41,6 +43,7 @@ namespace Library.Models
                 TestID = TestID,
                 CreatedTime = CreatedTime,
                 ExpiredTime = ExpiredTime,
+                TestComment = TestComment,
                 TokenActive = TokenActive//,
                 //TokenID = TokenID
             };
@@ -54,6 +57,7 @@ namespace Library.Models
             token.CreatedTime = CreatedTime;
             token.ExpiredTime = ExpiredTime;
             token.TokenActive = TokenActive;
+            token.TestComment = TestComment;
             //token.TokenID = TokenID;
         }
     }

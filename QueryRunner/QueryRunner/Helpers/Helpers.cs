@@ -11,23 +11,21 @@ namespace QueryRunner.Helpers
 {
     public class Helper
     {
-        public static void ExportToTextFile(HttpResponseBase response, StudentAnswer[] lines, double mark)
+        public static MemoryStream ExportToTextFile(List<String> lines)
         {
-            response.Clear();
-            response.AddHeader("content-disposition", "attachment; filename=testfile.txt");
-            response.AddHeader("content-type", "text/plain");
-            //Textfile contents:
-            using (StreamWriter writer = new StreamWriter(response.OutputStream))
+            MemoryStream memoryStream = new MemoryStream();
+            TextWriter tw = new StreamWriter(memoryStream);
+
+            foreach (String line in lines)
             {
-                foreach (StudentAnswer curAnswer in lines)
-                {
-                    //writer.WriteLine("{0}: {1}",curAnswer.QuestionID, curAnswer.Answer, curAnswer.);
-                    
-                }
+                tw.Write(line);
             }
-            response.End();
+
+            tw.Flush();
+          
+            return memoryStream;
         }
-   
+
 
         public static void FEach<T>(IEnumerable<T> items, Action<T> action)
         {

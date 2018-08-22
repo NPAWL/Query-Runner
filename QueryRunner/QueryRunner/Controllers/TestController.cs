@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using System.Web.UI.WebControls;
 using Library.Interfaces;
 using Library.Models;
+using QueryRunner.Helpers;
 using QueryRunner.Models;
 
 namespace QueryRunner.Controllers
@@ -15,18 +20,18 @@ namespace QueryRunner.Controllers
         private IUserRole _userRoleStore;
         private ITest _testStore;
         private IQuestion _questionStore;
+        private IStudentAnswer _studentAnswerStore;
 
         public TestController() { }
 
-        public TestController(IUser userStore, IUserRole userRoleStore, ITest testStore, IQuestion questionStore)
+        public TestController(IUser userStore, IUserRole userRoleStore, ITest testStore, IQuestion questionStore, IStudentAnswer studentAnswerStore)
         {
             _userStore = userStore;
             _userRoleStore = userRoleStore;
             _testStore = testStore;
             _questionStore = questionStore;
+            _studentAnswerStore = studentAnswerStore;
         }
-
-
 
         // GET: Tests
         public ActionResult CreateTest()
@@ -39,8 +44,6 @@ namespace QueryRunner.Controllers
             return View();
         }
 
-        private List<TestViewModel> TestQuestions;
-
         //Student view test
         [Authorize]
         public ActionResult ViewTest(int TestID)
@@ -50,14 +53,16 @@ namespace QueryRunner.Controllers
             //TODO: check if time is over
             ModelTest curTest = _testStore.GetTest(TestID);
             List<ModelQuestion> questions = _questionStore.GetQuestionsByTest(TestID).ToList();
-            List<TestViewModel> testQuestions = new List<TestViewModel>();
+            List<StudentTestQuestionAnswerModel> testQuestions = new List<StudentTestQuestionAnswerModel>();
             int iCount = 1;
             questions.ForEach(cur =>
             {
-                TestViewModel item = new TestViewModel(cur.QuestionID);
+                StudentTestQuestionAnswerModel item = new StudentTestQuestionAnswerModel(cur.QuestionID);
                 item.QuestionText = cur.Instruction;
                 item.chekced = false;
                 item.QuestionNum = iCount;
+                item.Username = User.Identity.Name;
+                item.QuestionMark = cur.MaxMark;
                 testQuestions.Add(item);
                 iCount++;
             });
@@ -69,15 +74,16 @@ namespace QueryRunner.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult ViewTest(TestViewModel testViewModel)
+        public ActionResult ViewTest(StudentTestQuestionAnswerModel testViewModel)
         {
-            //TODO save to db
-            List<TestViewModel> testQuestions = System.Web.HttpContext.Current.Session["Questions"] as List<TestViewModel>;
-            TestViewModel nextQuestion = null;
+            List<StudentTestQuestionAnswerModel> testQuestions = System.Web.HttpContext.Current.Session["Questions"] as List<StudentTestQuestionAnswerModel>;
+            StudentTestQuestionAnswerModel nextQuestion = null;
+            if (!ModelState.IsValid)
+                return View(testViewModel);
             Object Num = System.Web.HttpContext.Current.Session["curQuestionNum"];
-            Object ID = System.Web.HttpContext.Current.Session["curTestID"];
+            Object ID = System.Web.HttpContext.Current.Session["curQuestionID"];
             int curQuestionNum = int.Parse(Num.ToString()) + 1;
-            foreach (TestViewModel item in testQuestions)
+            foreach (StudentTestQuestionAnswerModel item in testQuestions)
             {
                 if (item.QuestionID == int.Parse(ID.ToString()))
                 {
@@ -92,16 +98,26 @@ namespace QueryRunner.Controllers
             Session["Questions"] = testQuestions;
             if (nextQuestion == null)
             {
-                return RedirectToAction("ViewTestResults", "Test", new { model = testQuestions });
+                return SaveToDatabase(testQuestions);
             }
+            Session["curQuestionID"] = nextQuestion.QuestionID;
             return View(nextQuestion);
         }
 
         [Authorize]
-        public ActionResult ViewTestResults(List<TestViewModel> model)
+        public ActionResult ViewTestResults()
         {
+            List<StudentTestQuestionAnswerModel> model = System.Web.HttpContext.Current.Session["Questions"] as List<StudentTestQuestionAnswerModel>;
+            //Marking happens here
+            //Update model to reflect mark
+            return View(model);
+        }
 
-            return View();
+        [Authorize]
+        public ActionResult SaveToDatabase(List<StudentTestQuestionAnswerModel> testViewModels)
+        {
+            testViewModels.ForEach(cur => _studentAnswerStore.CreateStudentAnswer(cur.ToDataModel()));
+            return RedirectToAction("ViewTestResults", "Test");
         }
 
         public ActionResult Resources()
@@ -109,12 +125,43 @@ namespace QueryRunner.Controllers
             return View();
         }
 
-        public void exportStudentAnswers()
+        [HttpGet]
+        public ActionResult SetStudentFeedback(String flags, String comment)
         {
-            //need all answers here
-            //loops through all answers
-            //string name = lines[0].Username;
-            //Helpers.Exporter.exportToTextFile(Response, new DataLayer.Entities.StudentAnswer[5]);
+            //TODO needs testing
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            var obj = serializer.Deserialize<List<int>>(flags);
+            List<StudentTestQuestionAnswerModel> model = System.Web.HttpContext.Current.Session["Questions"] as List<StudentTestQuestionAnswerModel>;
+            model.ForEach(cur =>
+            {
+                foreach (int curFlag in obj)
+                {
+                    if (cur.QuestionID == curFlag)
+                    {
+                        model.ElementAt(model.IndexOf(cur)).chekced = true;
+                        cur.chekced = true;
+                        break;
+                    }
+                }
+            });
+            model.ForEach(cur => _studentAnswerStore.UpdateStudentAnswer(cur.ToDataModel()));
+            return Json(new { success = true, message = "Feedback saved!" }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpGet]
+        public ActionResult exportStudentAnswers()
+        {
+            //TODO needs testing
+            List<StudentTestQuestionAnswerModel> model = System.Web.HttpContext.Current.Session["Questions"] as List<StudentTestQuestionAnswerModel>;
+            List<String> lines = new List<string>();
+            lines.Add(String.Format("Username: {0}; Date: {1}", User.Identity.Name, DateTime.Now));
+            lines.Add("\n<<<--------------------Questions-------------------->>>");
+            model.ForEach(cur => lines.Add(cur.ToString()));
+            //Helper.ExportToTextFile(Response, lines);
+            MemoryStream memoryStream = Helper.ExportToTextFile(lines);
+            return File(memoryStream.GetBuffer(), "text/plain", User.Identity.Name + ".gaadw.txt");
+
         }
     }
 }

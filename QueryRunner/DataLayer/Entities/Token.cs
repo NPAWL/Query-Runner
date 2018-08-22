@@ -21,6 +21,7 @@ namespace DataLayer.Entities
         public System.DateTime ExpiredTime { get; set; }
         public bool TokenActive { get; set; }
         public int TokenID { get; set; }
+        public string TestComment { get; set; }
     
         public virtual Test Test { get; set; }
         public virtual User User { get; set; }
