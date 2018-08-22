@@ -52,33 +52,25 @@
 			<md-card>
 				<md-card-title>
 					<md-card-title-text>
-						<span class="md-title">Question 3</span>
+						<span class="md-title" id="qTitle">Question @Html.DisplayTextFor(cur => cur.QuestionNum)</span>
 					</md-card-title-text>
 				</md-card-title>
 
 				<md-card-content>
-					<p>
-						Do this and this and this using that other thing. Don't forget to remember that other thing
-						which is maybe important. This is truely all up to you... i think...
-					</p>
-					<p>Sample output:</p>
-					<image src="../Res/question2.png"></image>
+					<p id="qQuestion">@Html.DisplayTextFor(cur => cur.QuestionText)</p>
 					<p>Enter you answer HERE: </p>
+					<div style="width:500px" ng-model="QuestionAnswer">@Html.TextAreaFor(cur => cur.QuestionAnswer, 7, 300, null)</div>
 				</md-card-content>
 
-				<md-content md-whiteframe="3" class="whiteBackground">
-					<md-input-container layout="column">
-						<label>Your answer: </label>
-						<textarea disabled rows="6" cols="50">
-I Did it using that other thing which i believe is what is required. OTHERWISE use this with that.
-                                    </textarea>
-					</md-input-container>
-				</md-content>
 
 				<md-card-actions layout="row" layout-align="start center">
+					<md-button class="btnBlue">Paste</md-button>
+					<span flex></span>
+					<input class="btnBlue" type="submit" value="Submit" />
+					<md-button class="btnBlue">Clear</md-button>
+
 					<span flex></span>
 					<md-button class="btnBlue">Export marks</md-button>
-					<md-button class="btnBlue">Submit All and Finish</md-button>
 				</md-card-actions>
 			</md-card>
 

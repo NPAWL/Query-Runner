@@ -1,4 +1,4 @@
-﻿@model List<QueryRunner.Models.TestViewModel>
+﻿@model QueryRunner.Models.TestViewModel
 
 @{
 	ViewBag.Title = "ViewTest";
@@ -8,47 +8,54 @@
 <md-content class="bodyMargin" layout="column">
 	<md-content layout="row">
 
-
-
-		<div layout="column">
-			<md-list md-whiteframe="3" class="whiteBackground" layout-fit>
-				<md-subheader class="md-primary md-hue-1">Questions</md-subheader>
-				@foreach (var item in Model)
-				{
-					<md-list-item>
-						<p>
-							<a onclick="ShowQuestion(@Html.ValueFor(modelItem => item.QuestionID))">Question @item.QuestionNum</a>
-						</p>
-					</md-list-item>
-				}
-			</md-list>
+		<div layout="column" style="width:380px">
 			<md-content md-whiteframe="3" class="whiteBackground">
-				<md-input-container layout="column">
+				<md-input-container layout="column" style="width:380px">
 					<label>Type your query here:</label>
-					<textarea rows="6" cols="50"></textarea>
+					<textarea rows="6" cols="100" style="width:380px"></textarea>
 				</md-input-container>
-				<md-button layout="row" layout-align="center center" class="btnBlue">Copy</md-button>
+				<div layout="row">
+					<md-button layout="row" layout-align="center center" class="btnBlue">RUN</md-button>
+					<md-button layout="row" layout-align="center center" class="btnBlue">COPY</md-button>
+				</div>
 			</md-content>
 		</div>
 
-
 		<md-content>
-			<md-card id="curQuestions">
-				@foreach (var item in Model)
-				{
-					@Html.Action("pViewQuestion","Test", new { Qid = item.QuestionID, Qnum = item.QuestionNum, Question = item.QuestionText });
-				}
-			</md-card>
+			@using (Html.BeginForm("ViewTest", "Test", FormMethod.Post))
+			{
+				<md-card id="curQuestions">
+					<md-card-title>
+						<md-card-title-text>
+							<span class="md-title" id="qTitle">Question @Html.DisplayTextFor(cur => cur.QuestionNum)</span>
+						</md-card-title-text>
+					</md-card-title>
+
+					<md-card-content>
+						<p id="qQuestion">@Html.DisplayTextFor(cur => cur.QuestionText)</p>
+						<p>Enter you answer HERE: </p>
+						<div style="width:500px" ng-model="QuestionAnswer">@Html.TextAreaFor(cur => cur.QuestionAnswer, 7, 300, null)</div>
+					</md-card-content>
+
+
+					<md-card-actions layout="row" layout-align="start center">
+						<md-button class="btnBlue">Paste</md-button>
+						<span flex></span>
+						<input class="btnBlue" type="submit" value="Submit" />
+						<md-button class="btnBlue">Clear</md-button>
+					</md-card-actions>
+				</md-card>
+			}
+
 		</md-content>
 	</md-content>
 	<image ng-src="Res/database.PNG"></image>
 </md-content>
 
 <script>
-	function ShowQuestion(id) {
-		$(function () {
-			$(".showQuestion").css("display", "none");
-			$("#showQuestion" + id).css("display", "block");
-		});
+	ShowQuestion = function (id, num, text, answer) {
+		$('#qTitle').text("Question " + num);
+		$('#qQuestion').text(text);
+		$('#qAnswer').text(answer);
 	}
 </script>

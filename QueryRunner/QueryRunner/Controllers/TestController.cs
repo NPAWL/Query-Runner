@@ -61,21 +61,46 @@ namespace QueryRunner.Controllers
                 testQuestions.Add(item);
                 iCount++;
             });
-            return View(testQuestions);
+            Session["Questions"] = testQuestions;
+            Session["curQuestionID"] = testQuestions.First().QuestionID;
+            Session["curQuestionNum"] = 1;
+            return View(testQuestions.First());
         }
 
         [Authorize]
-        public ActionResult pViewQuestion(int Qid, int Qnum, String Question)
+        [HttpPost]
+        public ActionResult ViewTest(TestViewModel testViewModel)
         {
-            TestViewModel item = new TestViewModel(Qid);
-            item.QuestionText = Question;
-            item.QuestionNum = Qnum;     
-            return PartialView(item);
+            //TODO save to db
+            List<TestViewModel> testQuestions = System.Web.HttpContext.Current.Session["Questions"] as List<TestViewModel>;
+            TestViewModel nextQuestion = null;
+            Object Num = System.Web.HttpContext.Current.Session["curQuestionNum"];
+            Object ID = System.Web.HttpContext.Current.Session["curTestID"];
+            int curQuestionNum = int.Parse(Num.ToString()) + 1;
+            foreach (TestViewModel item in testQuestions)
+            {
+                if (item.QuestionID == int.Parse(ID.ToString()))
+                {
+                    testQuestions.ElementAt(testQuestions.IndexOf(item)).QuestionAnswer = testViewModel.QuestionAnswer;
+                }
+                if (item.QuestionNum == curQuestionNum)
+                {
+                    nextQuestion = item;
+                }
+            }
+            Session["curQuestionNum"] = curQuestionNum;
+            Session["Questions"] = testQuestions;
+            if (nextQuestion == null)
+            {
+                return RedirectToAction("ViewTestResults", "Test", new { model = testQuestions });
+            }
+            return View(nextQuestion);
         }
 
         [Authorize]
-        public ActionResult ViewTestResults()
+        public ActionResult ViewTestResults(List<TestViewModel> model)
         {
+
             return View();
         }
 
