@@ -59,7 +59,7 @@ namespace QueryRunner.Controllers
             {
                 StudentTestQuestionAnswerModel item = new StudentTestQuestionAnswerModel(cur.QuestionID);
                 item.QuestionText = cur.Instruction;
-                item.chekced = false;
+                item.QuestionFlagged = false;
                 item.QuestionNum = iCount;
                 item.Username = User.Identity.Name;
                 item.QuestionMark = cur.MaxMark;
@@ -138,8 +138,8 @@ namespace QueryRunner.Controllers
                 {
                     if (cur.QuestionID == curFlag)
                     {
-                        model.ElementAt(model.IndexOf(cur)).chekced = true;
-                        cur.chekced = true;
+                        model.ElementAt(model.IndexOf(cur)).QuestionFlagged = true;
+                        cur.QuestionFlagged = true;
                         break;
                     }
                 }
