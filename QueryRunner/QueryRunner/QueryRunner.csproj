@@ -211,6 +211,8 @@
     <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\AdminAddViewModel.cs" />
+    <Compile Include="Models\CreateQuestionViewModel.cs" />
+    <Compile Include="Models\CreateTestViewModel.cs" />
     <Compile Include="Models\IdentityModel.cs" />
     <Compile Include="Models\DisplayStudentTestsModel.cs" />
     <Compile Include="Models\StudentTestQuestionAnswerModel.cs" />
@@ -323,6 +325,7 @@
     <Content Include="Views\Admin\Add.cshtml" />
     <Content Include="Views\Admin\Delete.cshtml" />
     <Content Include="Views\Admin\DeleteConfirm.cshtml" />
+    <Content Include="Views\Test\CreateQuestion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
