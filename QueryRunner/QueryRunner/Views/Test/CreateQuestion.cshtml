@@ -1,16 +1,22 @@
 ﻿
 @{
-    ViewBag.Title = "Create Test";
+    ViewBag.Title = "Set Questions";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 @model QueryRunner.Models.CreateTestViewModel
 
-<h2>Create New Test</h2>
+<h2>Set Question @Model.QuestionNumber</h2>
 <div class="modal-body">
-    @using (Html.BeginForm("CreateTest","Test",FormMethod.Post,new { @id = "addTest",@class = "form-horizontal" }))
+    @using (Html.BeginForm("CreateQuestion","Test",FormMethod.Post,new { @id = "addQuestion",@class = "form-horizontal" }))
         {
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.TestName)
+        @Html.HiddenFor(model => model.TestDate)
+        @Html.HiddenFor(model => model.TestStartTime)
+        @Html.HiddenFor(model => model.TestEndTime)
+        @Html.HiddenFor(model => model.NumberOfQuestions)
+        @Html.HiddenFor(model => model.QuestionNumber)
         <div class="form-group text-left">
             <label class="control-label textLeft col-md-4" for="TestName">Test Name:</label>
             <div class="col-md-8">
@@ -47,9 +53,7 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-offset-4 col-md-8"><input type="submit" value="Next Step" class="btn btn-primary btn-outline" /></div>
+            <div class="col-md-offset-4 col-md-8"><input type="submit" value="Create Test" class="btn btn-primary btn-outline" /></div>
         </div>
         }
 </div>
-
-

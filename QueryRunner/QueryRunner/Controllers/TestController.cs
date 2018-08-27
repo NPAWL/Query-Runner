@@ -21,22 +21,44 @@ namespace QueryRunner.Controllers
         private ITest _testStore;
         private IQuestion _questionStore;
         private IStudentAnswer _studentAnswerStore;
+        private IToken _tokenStore;
 
         public TestController() { }
 
-        public TestController(IUser userStore, IUserRole userRoleStore, ITest testStore, IQuestion questionStore, IStudentAnswer studentAnswerStore)
+        public TestController(IUser userStore, IUserRole userRoleStore, ITest testStore, IQuestion questionStore, IStudentAnswer studentAnswerStore, IToken tokenStore)
         {
             _userStore = userStore;
             _userRoleStore = userRoleStore;
             _testStore = testStore;
             _questionStore = questionStore;
             _studentAnswerStore = studentAnswerStore;
+            _tokenStore = tokenStore;
         }
 
         // GET: Tests
         public ActionResult CreateTest()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateTest(CreateTestViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+            for (int i = 0; i < model.NumberOfQuestions; i++)
+              {
+                model.Questions.Add(new CreateQuestionViewModel());
+              }
+            model.QuestionNumber = 1;
+            return View("CreateQuestion", model);
+        }
+
+        [HttpPost]
+        public ActionResult CreateQuestion(CreateTestViewModel model)
+        {
+
+            return View(model);
         }
 
         public ActionResult ViewTests()
@@ -59,7 +81,7 @@ namespace QueryRunner.Controllers
             {
                 StudentTestQuestionAnswerModel item = new StudentTestQuestionAnswerModel(cur.QuestionID);
                 item.QuestionText = cur.Instruction;
-                item.flagged = false;
+                item.QuestionFlagged = false;
                 item.QuestionNum = iCount;
                 item.Username = User.Identity.Name;
                 item.QuestionMark = cur.MaxMark;
@@ -138,8 +160,8 @@ namespace QueryRunner.Controllers
                 {
                     if (cur.QuestionID == curFlag)
                     {
-                        model.ElementAt(model.IndexOf(cur)).chekced = true;
-                        cur.chekced = true;
+                        model.ElementAt(model.IndexOf(cur)).QuestionFlagged = true;
+                        cur.QuestionFlagged = true;
                         break;
                     }
                 }

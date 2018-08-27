@@ -15,7 +15,7 @@ namespace QueryRunner.Models
         [Display(Name = "Test Date")]
         public DateTime Date;
         [Display(Name = "Mark")]
-        public String Mark;
+        public string Mark;
 
         public DisplayStudentTestsModel(int testID)
         {
