@@ -32,6 +32,32 @@ namespace Library.Stores
             return model.Get(_ctx).FirstOrDefault(x => x.Username == username);
         }
 
+        public List<ModelUser> GetAdminUsers()
+        {
+            var model = new ModelUser();
+            StoreUserRole userRoleStore = new StoreUserRole(_ctx);
+            List<ModelUser> final = new List<ModelUser>();
+            List<ModelUserRole> adminURs = userRoleStore.ReadUserRoles().Where(x => x.RoleName == "Admin").ToList();
+            foreach (ModelUserRole item in adminURs)
+              {
+                final.Add(GetUser(item.Username));
+              }
+            return final;
+        }
+
+        public List<ModelUser> GetStudentUsers()
+        {
+            var model = new ModelUser();
+            StoreUserRole userRoleStore = new StoreUserRole(_ctx); 
+            List<ModelUser> final = new List<ModelUser>();
+            List<ModelUserRole> studentURs = userRoleStore.ReadUserRoles().Where(x => x.RoleName == "Student").ToList();
+            foreach (ModelUserRole item in studentURs)
+              {
+                final.Add(GetUser(item.Username));
+              }
+            return final;
+        }
+
         public void CreateUser(ModelUser model)
         {
             using (var transaction = _ctx.Database.BeginTransaction())

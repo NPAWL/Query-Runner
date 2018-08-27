@@ -11,6 +11,8 @@ namespace Library.Interfaces
     {
         IQueryable<ModelUser> ReadUsers(); 
         ModelUser GetUser(string username);
+        List<ModelUser> GetAdminUsers();
+        List<ModelUser> GetStudentUsers();
         void CreateUser(ModelUser model);
         void CreateUser(ModelUser model, string rolename);
         void DeleteUser(ModelUser model);

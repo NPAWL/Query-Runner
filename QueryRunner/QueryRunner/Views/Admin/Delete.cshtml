@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Delete Admins";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Delete Admins</h2>
+@model List<Library.Models.ModelUser>
+
+    <div class="row text-left margin-left-right-fix">
+    <ul class="navList" style="list-style-type: none;">
+        @foreach (var item in Model) {
+            <li>
+                <div class="col-xxs-6 col-sm-4 col-md-3 margin-bottom-jobs">
+                    <div class="box minheight-280">
+                        <h4 class="padding-left">
+                           @Html.DisplayFor(modelItem => item.Username)
+                           <a class="float-right clickable" onclick="DeleteAdmin(@Html.ValueFor(modelItem => item.Username))"><i class="glyphicon glyphicon-trash gi-md greenDD"></i></a>
+                        </h4>
+                        <hr />
+                    </div>
+                </div>
+            </li>
+            @Html.Action("DeleteConfirm","Admin", new { username = item.Username })
+        }
+    </ul>
+</div>
+
+<script>
+  function DeleteAdmin(id) {
+    $(function () {
+      $("#deleteModal" + id).addClass("in").css("display", "block").attr("aria-hidden", "false");
+      $("#deleteModal" + id).children().before("<div class='modal-backdrop fade in'></div>");
+    });
+  }
+
+  function closeDeleteAdmin(id) {
+    $(function () {
+      $("#deleteModal" + id).removeClass("in").css("display", "none").attr("aria-hidden", "true");
+      $("#deleteModal" + id).children(".modal-backdrop").remove();
+    });
+  }
+</script>
