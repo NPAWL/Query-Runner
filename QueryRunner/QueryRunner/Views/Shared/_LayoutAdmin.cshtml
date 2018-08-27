@@ -1,140 +1,159 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!--<link rel="shortcut icon" href="~/Content/Images/penguins.jpg" type="image/x-icon">-->
-	<title>@ViewBag.Title</title>
-	@Styles.Render("~/Content/css")
-	@Scripts.Render("~/bundles/modernizr")
-	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--<link rel="shortcut icon" href="~/Content/Images/penguins.jpg" type="image/x-icon">-->
+  <title>@ViewBag.Title</title>
+  @Styles.Render("~/Content/css")
+  @Scripts.Render("~/bundles/modernizr")
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
 </head>
 <body ng-app="Screen" ng-cloak>
-	<header>
-		<md-toolbar layout="row" md-scroll-shrink>
-			@{Html.RenderPartial("../Shared/Header");}
-			@{Html.RenderPartial("../Shared/LogOut");}
-		</md-toolbar>
-	</header>
+  <header>
+    <md-toolbar layout="row" md-scroll-shrink>
+      @{Html.RenderPartial("../Shared/Header");}
+      @{Html.RenderPartial("../Shared/LogOut");}
+    </md-toolbar>
+  </header>
 
-	<div class="adminBody">
-		<main layout="row" flex style="margin: 0px 40px;">
-			<md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="true">
-				<md-content layout-padding>
-					<md-toolbar style="min-height: 30px;">
-						<h1 class="md-toolbar-tools" style="height: 30px !important">Manage Admin</h1>
-					</md-toolbar>
-					<md-content style="margin-left: 40px">
-						<md-list-item ng-click="null" onclick="redirectTo('AddAdmin',1)">
-							<p>Add Admin</p>
-						</md-list-item>
-						<md-list-item ng-click="null" onclick="redirectTo('DelAdmin',0)">
-							<p>Remove Admin</p>
-						</md-list-item>
-						<md-list-item ng-click="null" onclick="redirectTo('AddAdmin',1)">
-							<p>Edit Profile</p>
-						</md-list-item>
-					</md-content>
-					<md-toolbar style="min-height: 30px;">
-						<h1 class="md-toolbar-tools" style="height: 30px !important">Manage Tests</h1>
-					</md-toolbar>
-					<md-content style="margin-left: 40px">
-						<md-list-item ng-click="null" onclick="redirectTo('ViewTest',1)">				
-							<p>View Last Test</p>
-						</md-list-item>
-						<md-list-item ng-click="null" onclick="redirectTo('CreateTest',0)">
-							<p>Create Test</p>
-						</md-list-item>
-						<md-list-item ng-click="null" onclick="redirectTo('ViewTests',0)">
-							<p>View Tests</p>
-						</md-list-item>
-						<md-list-item ng-click="null" onclick="redirectTo('ViewStudents',0)">
-							<p>View Students</p>
-						</md-list-item>
-						<md-list-item ng-click="null" onclick="redirectTo('ViewResources',0)">
-							<p>View Test Resources</p>
-						</md-list-item>
-					</md-content>
-					<md-toolbar style="min-height: 30px;">
-						<h1 class="md-toolbar-tools" style="height: 30px !important">Other</h1>
-					</md-toolbar>
-					<md-content style="margin-left: 40px">
-						<md-list-item ng-click="null">
-							<p>Enter Student Mode</p>
-						</md-list-item>
-					</md-content>
-				</md-content>
+  <div class="adminBody">
+    <main layout="row" flex style="margin: 0px 40px;">
+      <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="true">
+        <md-content layout-padding>
+          <md-toolbar style="min-height: 30px;">
+            <h1 class="md-toolbar-tools" style="height: 30px !important">Manage Admin</h1>
+          </md-toolbar>
+          <md-content style="margin-left: 40px">
+            <md-list-item ng-click="null" onclick="AddAdmin()">
+              <p>Add Admin</p>
+            </md-list-item>
+            <md-list-item ng-click="null" href="/Admin/Delete">
+              <p>Remove Admin</p>
+            </md-list-item>
+            <!--<md-list-item ng-click="null" onclick="redirectTo('AddAdmin',1)">
+              <p>Edit Profile</p>
+            </md-list-item>-->
+          </md-content>
+          <md-toolbar style="min-height: 30px;">
+            <h1 class="md-toolbar-tools" style="height: 30px !important">Manage Tests</h1>
+          </md-toolbar>
+          <md-content style="margin-left: 40px">
+            <md-list-item ng-click="null" onclick="redirectTo('ViewTest',1)">
+              <p>View Last Test</p>
+            </md-list-item>
+            <md-list-item ng-click="null" onclick="redirectTo('CreateTest',0)">
+              <p>Create Test</p>
+            </md-list-item>
+            <md-list-item ng-click="null" onclick="redirectTo('ViewTests',0)">
+              <p>View Tests</p>
+            </md-list-item>
+            <md-list-item ng-click="null" onclick="redirectTo('ViewStudents',0)">
+              <p>View Students</p>
+            </md-list-item>
+            <md-list-item ng-click="null" onclick="redirectTo('ViewResources',0)">
+              <p>View Test Resources</p>
+            </md-list-item>
+          </md-content>
+          <md-toolbar style="min-height: 30px;">
+            <h1 class="md-toolbar-tools" style="height: 30px !important">Other</h1>
+          </md-toolbar>
+          <md-content style="margin-left: 40px">
+            <md-list-item ng-click="null">
+              <p>Enter Student Mode</p>
+            </md-list-item>
+          </md-content>
+        </md-content>
 
-			</md-sidenav>
+      </md-sidenav>
 
-			<md-content id="adminBody" flex style="margin: 0px 40px;" layout="column" layout-align="top center">
-				@RenderBody()
+      <md-content id="adminBody" flex style="margin: 0px 40px;" layout="column" layout-align="top center">
+        @RenderBody()
 
-			</md-content>
-			<md-content flex="20" md-whiteframe="3" style="background-color: white;">
-				<md-input-container layout="column">
-					<h4 layout="row" layout-align="center center">Please Note That</h4>
-					<textarea disabled rows="6" cols="50">
-You have 1 test who has no students!
+      </md-content>
+      <!--<md-content flex="20" md-whiteframe="3" style="background-color: white;">
+              <md-input-container layout="column">
+                <h4 layout="row" layout-align="center center">Please Note That</h4>
+                <textarea disabled rows="6" cols="50">
+      You have 1 test who has no students!
 
-You have 7 falged questions that need your attention!
+      You have 7 falged questions that need your attention!
 
-Statistics:
-    * Set Tests: 4
-    * Written Tests: 3
-    * Registered Students: 146
-    * Overall Test Average: 79%
-                    </textarea>
-				</md-input-container>
-			</md-content>
-		</main>
-	</div>
+      Statistics:
+          * Set Tests: 4
+          * Written Tests: 3
+          * Registered Students: 146
+          * Overall Test Average: 79%
+                          </textarea>
+              </md-input-container>
+            </md-content>-->
+    </main>
+  </div>
 
-	@{Html.RenderPartial("../Shared/Footer");}
+  @{Html.RenderPartial("../Shared/Footer");}
 
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/bootstrap")
-	@Scripts.Render("~/bundles/angular")
-	@Scripts.Render("~/bundles/material")
-	@RenderSection("scripts", required: false)
+  @Scripts.Render("~/bundles/jquery")
+  @Scripts.Render("~/bundles/bootstrap")
+  @Scripts.Render("~/bundles/angular")
+  @Scripts.Render("~/bundles/material")
+  @RenderSection("scripts", required: false)
 
-	<script type="text/javascript">
-		angular.module('Screen', ['ngMaterial', 'ngMessages'])
-			.run(function () { });
-		redirectTo = function (path, args) {
-			switch (path) {
-				case "AddAdmin": {
-					window.location.href = "/Admin/AddAdmin?args=" + args;
-					break;
-				}
-				case "DelAdmin": {
-					window.location.href = "/Admin/DelAdmin?args=" + args;
-					break;
-				}
-				case "ViewTest": {
-					window.location.href = "/Test/ViewTest?args=" + args;
-					break;
-				}
-				case "ViewTests": {
-					window.location.href = "/Test/ViewTests?args=" + args;
-					break;
-				}
-				case "CreatTest": {
-					window.location.href = "/Test/CreateTest?args=" + args;
-					break;
-				}
-				case "ViewStudents": {
-					window.location.href = "/Student/ListStudents?args=" + args;
-					break;
-				}
-				case "ViewResources": {
-					window.location.href = "/Test/Resources?args=" + args;
-					break;
-				}
-			}
-		}
-	</script>
+  <!--<script type="text/javascript">
+    angular.module('Screen', ['ngMaterial', 'ngMessages'])
+      .run(function () { });
+    redirectTo = function (path, args) {
+      switch (path) {
+        case "AddAdmin": {
+          window.location.href = "/Admin/AddAdmin?args=" + args;
+          break;
+        }
+        case "DelAdmin": {
+          window.location.href = "/Admin/DelAdmin?args=" + args;
+          break;
+        }
+        case "ViewTest": {
+          window.location.href = "/Test/ViewTest?args=" + args;
+          break;
+        }
+        case "ViewTests": {
+          window.location.href = "/Test/ViewTests?args=" + args;
+          break;
+        }
+        case "CreatTest": {
+          window.location.href = "/Test/CreateTest?args=" + args;
+          break;
+        }
+        case "ViewStudents": {
+          window.location.href = "/Student/ListStudents?args=" + args;
+          break;
+        }
+        case "ViewResources": {
+          window.location.href = "/Test/Resources?args=" + args;
+          break;
+        }
+      }
+    }
+  </script>-->
 
+  <div class="modalWrapper">
+    @Html.Action("Add", "Admin")
+  </div>
+
+  <script>
+    function AddAdmin() {
+      $(function () {
+        $("#addModal").addClass("in").css("display", "block").attr("aria-hidden", "false");
+        $("#addModal").children().before("<div class='modal-backdrop fade in'></div>");
+      });
+    }
+
+    function closeAddAdmin() {
+      $(function () {
+        $("#addModal").removeClass("in").css("display", "none").attr("aria-hidden", "true");
+        $("#addModal").children(".modal-backdrop").remove();
+      });
+    }
+  </script>
 </body>
 </html>

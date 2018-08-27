@@ -1,0 +1,36 @@
+﻿@model Library.Models.ModelUser
+<div class="modal fade" id="deleteModal" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content registerModalWidth">
+            <div class="modal-header">
+                <h3 class="modal-title">Delete Skip</h3>
+                <div class="close-modal">
+                    <a data-dismiss="modal" class="close clickable" onclick="closeDeleteAdmin(@Model.Username)">X</a>
+                </div>
+                <hr />
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("DeleteConfirm", "Admin", FormMethod.Post, new { @id = "deleteAdmin"+Model.Username, @class = "form-horizontal" })) {
+                    @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.Username)
+                        <div style="display: flex;"><div class="margin-auto"><div class="form-group text-left">
+                            <label class="control-label textLeft col-md-4">Are you sure you want to delete @Html.ValueFor(model => model.Username)?</label>
+                        </div>
+                        </div></div>
+                        <div class="form-group">
+                            <div class="col-md-offset-10 col-md-8"><input type="submit" value="Confirm" class="btn btn-primary btn-outline" /></div>
+                        </div>
+                }
+            </div>
+            <div class="modal-footer">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#deleteModal").attr("id", "deleteModal"+@Model.Username);
+    });
+</script>

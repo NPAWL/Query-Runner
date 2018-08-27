@@ -59,7 +59,7 @@ namespace QueryRunner.Controllers
             {
                 StudentTestQuestionAnswerModel item = new StudentTestQuestionAnswerModel(cur.QuestionID);
                 item.QuestionText = cur.Instruction;
-                item.chekced = false;
+                item.flagged = false;
                 item.QuestionNum = iCount;
                 item.Username = User.Identity.Name;
                 item.QuestionMark = cur.MaxMark;
