@@ -17,7 +17,7 @@
 						<md-list-item>
 							<p>Question @item.QuestionNum</p>
 							<p>@item.MarkObtained / @item.QuestionMark</p>
-							<input class="flagboxes" type="checkbox" checked="@item.chekced" value="@item.QuestionID" style="width:20px;height:20px;">
+							<input class="flagboxes" type="checkbox" checked="@item.QuestionFlagged" value="@item.QuestionID" style="width:20px;height:20px;">
 							<md-tooltip md-direction="right">Flag this Question</md-tooltip>
 						</md-list-item>
 					}
