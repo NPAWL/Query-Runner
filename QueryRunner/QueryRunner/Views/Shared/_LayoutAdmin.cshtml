@@ -26,7 +26,7 @@
                         <h1 class="md-toolbar-tools" style="height: 30px !important">Manage Admin</h1>
                     </md-toolbar>
                     <md-content style="margin-left: 40px">
-                        <md-list-item ng-click="null" onclick="AddAdmin()">
+                        <md-list-item ng-click="null" href="/Admin/Add">
                             <p>Add Admin</p>
                         </md-list-item>
                         <md-list-item ng-click="null" href="/Admin/Delete">
@@ -99,7 +99,7 @@
     @Scripts.Render("~/bundles/material")
     @RenderSection("scripts",required: false)
 
-    <!--<script type="text/javascript">
+    <script type="text/javascript">
         angular.module('Screen', ['ngMaterial', 'ngMessages'])
             .run(function () { });
         redirectTo = function (path, args) {
@@ -134,9 +134,9 @@
                 }
             }
         }
-    </script>-->
+    </script>
 
-    <div class="modalWrapper">
+    <!--<div class="modalWrapper">
         @Html.Action("Add","Admin")
     </div>
 
@@ -154,7 +154,7 @@
         $("#addModal").children(".modal-backdrop").remove();
       });
     }
-    </script>
+    </script>-->
 
 </body>
 </html>

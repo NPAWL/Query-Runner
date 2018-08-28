@@ -1,5 +1,12 @@
-﻿@model QueryRunner.Models.AdminAddViewModel
-<div class="modal fade" id="addModal" aria-hidden="true" style="display: none;">
+﻿
+@{
+    ViewBag.Title = "Add Admin";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@model QueryRunner.Models.AdminAddViewModel
+<!--<div class="modal fade" id="addModal" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content registerModalWidth">
             <div class="modal-header">
@@ -8,32 +15,34 @@
                     <a data-dismiss="modal" class="close clickable" onclick="closeAddAdmin()">X</a>
                 </div>
                 <hr />
+            </div>-->
+<div class="modal-body">
+    @using (Html.BeginForm("Add", "Admin", FormMethod.Post, new { @id = "addAdminUser", @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group text-left">
+            <label class="control-label textLeft col-md-4" for="Username">Username:</label>
+            <div class="col-md-8">
+                <input class="form-control, login-input" data-val="true" data-val-required="The Username field is required." id="Username" name="Username" placeholder="Username" type="text" value="" />
+                <span class="field-validation-valid text-danger" data-valmsg-for="Username" data-valmsg-replace="true"></span>
             </div>
-            <div class="modal-body">
-                @using (Html.BeginForm("Add", "Admin", FormMethod.Post, new { @id = "addAdminUser", @class = "form-horizontal" })) {
-                    @Html.AntiForgeryToken()
-                        <div class="form-group text-left">
-                            <label class="control-label textLeft col-md-4" for="Username">Username:</label>
-                            <div class="col-md-8"><input class="form-control, login-input" data-val="true" data-val-required="The Username field is required." id="Username" name="Username" placeholder="Username" type="text" value="" />
-                            <span class="field-validation-valid text-danger" data-valmsg-for="Username" data-valmsg-replace="true"></span></div>
-                        </div>
-                        <div class="form-group text-left">
-                            <label class="control-label textLeft col-md-4" for="Password">Password:</label>
-                            <div class="col-md-8"><input class="form-control, login-input" data-val="true" id="Password" name="Password" placeholder="Password" type="password" value="" /></div>
-                        </div>
-                        <div class="form-group text-left">
-                            <label class="control-label textLeft col-md-4" for="ConPassword">Confirm Password:</label>
-                            <div class="col-md-8"><input class="form-control, login-input" data-val="true" id="ConPassword" name="ConPassword" placeholder="Confirm password" type="password" value="" /></div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-offset-4 col-md-8"><input type="submit" value="Create" class="btn btn-primary btn-outline" /></div>
-                        </div>
-                }
-            </div>
-            <div class="modal-footer">
-                
+        </div>
+        <div class="form-group text-left">
+            <label class="control-label textLeft col-md-4" for="Password">Password:</label>
+            <div class="col-md-8"><input class="form-control, login-input" data-val="true" id="Password" name="Password" placeholder="Password" type="password" value="" /></div>
+        </div>
+        <div class="form-group text-left">
+            <label class="control-label textLeft col-md-4" for="ConPassword">Confirm Password:</label>
+            <div class="col-md-8"><input class="form-control, login-input" data-val="true" id="ConPassword" name="ConPassword" placeholder="Confirm password" type="password" value="" /></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8"><input type="submit" value="Create" class="btn btn-primary btn-outline" /></div>
+        </div>
+    }
+</div>
+<!--<div class="modal-footer">
+
             </div>
         </div>
     </div>
-</div>
-
+</div>-->

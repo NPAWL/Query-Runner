@@ -1,58 +1,59 @@
 ﻿@model List<QueryRunner.Models.StudentTestQuestionAnswerModel>
 
 @{
-	ViewBag.Title = "ViewTestResults";
-	Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+    ViewBag.Title = "ViewTestResults";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
 }
 
 <md-content class="bodyMargin" layout="column">
-	<md-content layout="row">
-		<div layout="column">
-			@using (Html.BeginForm("ViewTest", "Test", FormMethod.Post, new { name = "flagForm", id = "flagForm" }))
-			{
-				<md-list md-whiteframe="3" class="whiteBackground" layout-fit>
-					<md-subheader class="md-primary md-hue-1">Questions</md-subheader>
-					@foreach (var item in Model)
-					{
-						<md-list-item>
-							<p>Question @item.QuestionNum</p>
-							<p>@item.MarkObtained / @item.QuestionMark</p>
-							<input class="flagboxes" type="checkbox" checked="@item.QuestionFlagged" value="@item.QuestionID" style="width:20px;height:20px;">
-							<md-tooltip md-direction="right">Flag this Question</md-tooltip>
-						</md-list-item>
-					}
-				</md-list>
-				<md-content md-whiteframe="3" class="whiteBackground">
-					<md-input-container layout="column">
-						<label>Type your comments here if you have any problems!</label>
-						<textarea id="comment" rows="6" cols="50"></textarea>
-					</md-input-container>
-				</md-content>
-			}
-			@Html.ActionLink("Export Marks", "exportStudentAnswers", "Test")
-			<md-button id="exportMarks" class="btnBlue" onclick="exportMarks()">Export marks</md-button>
-			<md-button id="updateFeedback" class="btnBlue" onclick="updateFeedback()">Exit Test</md-button>
-		</div>
+    <md-content layout="row">
+        <div layout="column">
+            @using (Html.BeginForm("ViewTest", "Test", FormMethod.Post, new { name = "flagForm", id = "flagForm" }))
+            {
+                <md-list md-whiteframe="3" class="whiteBackground" layout-fit>
+                    <md-subheader class="md-primary md-hue-1">Questions</md-subheader>
+                    @foreach (var item in Model)
+                    {
+                        <md-list-item>
+                            <p>Question @item.QuestionNum</p>
+                            <p>@item.MarkObtained / @item.QuestionMark</p>
+                            <input class="flagboxes" type="checkbox" checked="@item.QuestionFlagged" value="@item.QuestionID" style="width:20px;height:20px;">
+                            <md-tooltip md-direction="right">Flag this Question</md-tooltip>
+                        </md-list-item>
+                    }
+                </md-list>
+                <md-content md-whiteframe="3" class="whiteBackground">
+                    <md-input-container layout="column">
+                        <label>Type your comments here if you have any problems!</label>
+                        <textarea id="comment" rows="6" cols="50"></textarea>
+                    </md-input-container>
+                </md-content>
+            }
+            <md-content layout="row" layout-align="center center">
+                @Html.ActionLink("Export Marks", "exportStudentAnswers", "Test")
+            </md-content>
+            <md-button id="updateFeedback" class="btnBlue" onclick="updateFeedback()">Exit Test</md-button>
+        </div>
 
-		<md-content>
-			@foreach (var cur in Model)
-			{
-				<md-card>
-					<md-card-title>
-						<md-card-title-text>
-							<span class="md-title" id="qTitle">Question @Html.DisplayTextFor(item => cur.QuestionNum)</span>
-						</md-card-title-text>
-					</md-card-title>
+        <md-content>
+            @foreach (var cur in Model)
+            {
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-title" id="qTitle">Question @Html.DisplayTextFor(item => cur.QuestionNum)</span>
+                        </md-card-title-text>
+                    </md-card-title>
 
-					<md-card-content>
-						<p id="qQuestion">@Html.DisplayTextFor(item => cur.QuestionText)</p>
-						<p>Enter you answer HERE: </p>
-						<div class="AllAnswers">@Html.TextAreaFor(item => cur.QuestionAnswer, 7, 300, null)</div>
-					</md-card-content>
-				</md-card>
-			}
-		</md-content>
-	</md-content>
+                    <md-card-content>
+                        <p id="qQuestion">@Html.DisplayTextFor(item => cur.QuestionText)</p>
+                        <p>Enter you answer HERE: </p>
+                        <div class="AllAnswers">@Html.TextAreaFor(item => cur.QuestionAnswer, 7, 300, null)</div>
+                    </md-card-content>
+                </md-card>
+            }
+        </md-content>
+    </md-content>
 </md-content>
 
 <script>
@@ -82,7 +83,7 @@
 						success: function (data) {
 							// data is your result from controller
 							if (data.success) {
-								alert(data.message + 'hi :)');
+								alert(data.message);
 							}
 						},
 						error: function (xhr) {

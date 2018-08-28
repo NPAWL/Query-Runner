@@ -47,9 +47,9 @@ namespace QueryRunner.Controllers
             if (!ModelState.IsValid)
                 return View(model);
             for (int i = 0; i < model.NumberOfQuestions; i++)
-              {
+            {
                 model.Questions.Add(new CreateQuestionViewModel());
-              }
+            }
             model.QuestionNumber = 1;
             return View("CreateQuestion", model);
         }
@@ -154,6 +154,7 @@ namespace QueryRunner.Controllers
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             var obj = serializer.Deserialize<List<int>>(flags);
             List<StudentTestQuestionAnswerModel> model = System.Web.HttpContext.Current.Session["Questions"] as List<StudentTestQuestionAnswerModel>;
+            int TestID = _questionStore.GetQuestion(model.ElementAt(0).QuestionID).TestID;
             model.ForEach(cur =>
             {
                 foreach (int curFlag in obj)
@@ -166,7 +167,17 @@ namespace QueryRunner.Controllers
                     }
                 }
             });
-            model.ForEach(cur => _studentAnswerStore.UpdateStudentAnswer(cur.ToDataModel()));
+
+            List<ModelStudentAnswer> curAnswerList = _studentAnswerStore.GetStudentAnswersByStudentByTest(User.Identity.Name, TestID).ToList();
+            curAnswerList.ForEach(curAnswer =>
+            {
+                model.ForEach(curStudnet =>
+                {
+                    if (curStudnet.QuestionID.Equals(curAnswer.QuestionID))
+                        curAnswer.Flagged = curStudnet.QuestionFlagged;
+                });
+            });
+            curAnswerList.ForEach(cur => _studentAnswerStore.UpdateStudentAnswer(cur));
             return Json(new { success = true, message = "Feedback saved!" }, JsonRequestBehavior.AllowGet);
 
         }

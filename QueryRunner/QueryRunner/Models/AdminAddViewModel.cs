@@ -12,9 +12,9 @@ namespace QueryRunner.Models
       private ModelUser _model = new ModelUser();
 
       [Required]
-      public string Username { get { return _model.Username; } set { _model.Username = value; } } 
+      public string Usernam { get { return _model.Username; } set { _model.Username = value; } } 
       [Required]
-      public string PasswordHash { get { return _model.PasswordHash; } set { _model.PasswordHash = value; } }
+      public string Password { get { return _model.PasswordHash; } set { _model.PasswordHash = value; } }
       [Compare("Password", ErrorMessage = "Confirm password does not match!")]
       [DataType(DataType.Password)]
       public string ConPassword { get; set; }
