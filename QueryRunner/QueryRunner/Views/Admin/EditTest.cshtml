@@ -1,0 +1,149 @@
+﻿@model QueryRunner.Models.EditTestAndQuestionsViewModel
+<div class="modal fade" id="editModal" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content registerModalWidth">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Test</h3>
+                <div class="close-modal">
+                    <a data-dismiss="modal" class="close clickable" onclick="closeEditTest(@Model.TestID)">X</a>
+                </div>
+                <hr />
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("EditTestF","Admin",FormMethod.Post,new { @id = "editTest"+Model.TestID,@class = "form-horizontal" }))
+                    {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.TestID)
+                    @Html.HiddenFor(model => model.TestActive)
+                    @Html.HiddenFor(model => model.TestUsername)
+                    <div class="form-group text-left">
+                        <label class="control-label textLeft col-md-4" for="TestName">Name:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.TestName,new { @class = "form-control, login-input",@id = "TestName",@name = "TestName",@type = "text",@placeholder = "Test Name" })
+                            @Html.ValidationMessageFor(model => model.TestName,"",new { @class = "text-danger field-validation-valid" })
+                        </div>
+                    </div><!--T is separator between Dates and Times-->
+                    <div class="form-group text-left">
+                        <label class="control-label textLeft col-md-4" for="TestDate">Date:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.TestDate,new { @class = "form-control, login-input",@id = "TestDate",@name = "TestDate",@type = "date",@value = Model.TestDate.ToString("yyy-MM-dd") })
+                            @Html.ValidationMessageFor(model => model.TestDate,"",new { @class = "text-danger field-validation-valid" })
+                        </div>
+                    </div>
+                    <div class="form-group text-left">
+                        <label class="control-label textLeft col-md-4" for="TestStartTime">Start Time:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.TestStartTime,new { @class = "form-control, login-input",@id = "TestStartTime",@name = "TestStartTime",@type = "time",@value = Model.TestStartTime.ToString("HH\\:mm\\:ss.fff") })
+                            @Html.ValidationMessageFor(model => model.TestStartTime,"",new { @class = "text-danger field-validation-valid" })
+                        </div>
+                    </div>
+                    <div class="form-group text-left">
+                        <label class="control-label textLeft col-md-4" for="TestEndTime">End Time:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.TestEndTime,new { @class = "form-control, login-input",@id = "TestEndTime",@name = "TestEndTime",@type = "time",@value = Model.TestEndTime.ToString("HH\\:mm\\:ss.fff") })
+                            @Html.ValidationMessageFor(model => model.TestEndTime,"",new { @class = "text-danger field-validation-valid" })
+                        </div>
+                    </div>
+                    <div class="form-group text-left">
+                        <ul class="navList" style="list-style-type: none;">
+                            @foreach (var item in Model.Questions)
+                                {
+                                @Html.HiddenFor(model => item.QuestionID)
+                                @Html.HiddenFor(model => item.TestID)
+                                <li>
+                                    <div class="col-xxs-6 col-sm-4 col-md-3 margin-bottom-jobs">
+                                        <div class="box minheight-280">
+                                            <h4 class="padding-left">
+                                                Question
+                                            </h4>
+                                            <hr />
+                                            <div class="row text-left padding-left">
+                                                <div class="col-md-12">
+                                                    <!--<span>-->
+                                                    <div class="form-group text-left">
+                                                        <label class="control-label textLeft col-md-4" for="Instruction+@item.QuestionID">Instruction:</label>
+                                                        <div class="col-md-8">
+                                                            @Html.TextAreaFor(model => item.Instruction,new { @class = "form-control, login-input",@id = "Instruction"+item.QuestionID,@name = "Instruction"+item.QuestionID,@placeholder = "Question Instruction" })
+                                                            @Html.ValidationMessageFor(model => item.Instruction,"",new { @class = "text-danger field-validation-valid" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group text-left">
+                                                        <label class="control-label textLeft col-md-4" for="QuestionAnswer+@item.QuestionID">Answer query:</label>
+                                                        <div class="col-md-8">
+                                                            @Html.TextAreaFor(model => item.QuestionAnswer,new { @class = "form-control, login-input",@id = "QuestionAnswer"+item.QuestionID,@name = "QuestionAnswer"+item.QuestionID,@placeholder = "SQL query that produces the answer" })
+                                                            @Html.ValidationMessageFor(model => item.QuestionAnswer,"",new { @class = "text-danger field-validation-valid" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group text-left">
+                                                        <label class="control-label textLeft col-md-4" for="MaxMark+@item.QuestionID">Max mark:</label>
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => item.MaxMark,new { @class = "form-control, login-input",@id = "MaxMark"+item.QuestionID,@name = "MaxMark"+item.QuestionID,@type = "number",@min = "1",@step = "1" })
+                                                            @Html.ValidationMessageFor(model => item.MaxMark,"",new { @class = "text-danger field-validation-valid" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group text-left">
+                                                        <label class="control-label textLeft col-md-4" for="QuestionActive+@item.QuestionID">Uncheck to delete:</label>
+                                                        <div class="col-md-8">
+                                                            @Html.CheckBoxFor(model => item.QuestionActive,new { @class = "form-control, login-input",@id = "QuestionActive"+item.QuestionID,@name = "QuestionActive"+item.QuestionID })
+                                                            @Html.ValidationMessageFor(model => item.QuestionActive,"",new { @class = "text-danger field-validation-valid" })
+                                                        </div>
+                                                    </div>
+                                                    <!--<div class="form-group text-left">
+                                                        <label class="control-label textLeft col-md-4" for="QuestionInstruction">Instruction:</label>
+                                                        <div class="col-md-8">
+                                                            <textarea class="form-control, login-input" data-val="true" data-val-required="The instruction field is required." id="QuestionInstruction" name="QuestionInstruction">Question Instruction</textarea>
+                                                            <span class="field-validation-valid text-danger" data-valmsg-for="QuestionInstruction" data-valmsg-replace="true"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group text-left">
+                                                        <label class="control-label textLeft col-md-4" for="QuestionAnswer">Answer query:</label>
+                                                        <div class="col-md-8">
+                                                            <textarea class="form-control, login-input" data-val="true" data-val-required="The answer field is required." id="QuestionAnswer" name="QuestionAnswer">SQL query that produces the answer</textarea>
+                                                            <span class="field-validation-valid text-danger" data-valmsg-for="QuestionAnswer" data-valmsg-replace="true"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group text-left">
+                                                        <label class="control-label textLeft col-md-4" for="QuestionMaxMark">Max mark:</label>
+                                                        <div class="col-md-8">
+                                                            <input class="form-control, login-input" data-val="true" data-val-required="The mark field is required." id="QuestionMaxMark" name="QuestionMaxMark" type="number" min="1" step="1" value="1" />
+                                                            <span class="field-validation-valid text-danger" data-valmsg-for="QuestionMaxMark" data-valmsg-replace="true"></span>
+                                                        </div>
+                                                    </div>-->
+                                                    <!--</span>-->
+                                                </div>
+                                            </div>
+                                            <!--<hr />
+                    <div class="row row text-right padding-right">
+                        <div class="col-md-12">
+                            <div>
+                                <a type="button" href="/Task/Index" id="jobs" class="btn btn-primary btn-clear client-button">
+                                    Jobs
+                                </a>
+                            </div>
+                        </div>
+                    </div>-->
+                                        </div>
+                                    </div>
+                                </li>
+                                }
+                            </ul>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-8"><input type="submit" value="Save" class="btn btn-primary btn-outline" /></div>
+                    </div>
+                    }
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#editModal").attr("id", "editModal"+@Model.TestID);
+    });
+</script>

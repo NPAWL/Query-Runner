@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "ViewTests";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>ViewTests</h2>
+
+@model List<Library.Models.ModelTest>
+
+<div class="row text-left">
+    <ul class="navList" style="list-style-type: none;">
+        @foreach (var item in Model)
+            {
+            <li>
+                <div class="col-xxs-6 col-sm-4 col-md-3 margin-bottom-jobs">
+                    <div class="box minheight-280">
+                        <h4 class="padding-left">
+                            @Html.DisplayFor(modelItem => item.TestName)
+                            <a class="float-right clickable" onclick="EditTest(@Html.ValueFor(modelItem => item.TestID))"><i class="glyphicon glyphicon-pencil gi-md greenDD"></i></a>
+                            <a class="float-right clickable" onclick="DeleteTest(@Html.ValueFor(modelItem => item.TestID))"><i class="glyphicon glyphicon-trash gi-md greenDD"></i></a>
+                        </h4>
+                        <hr />
+                        <div class="row text-left padding-left">
+                            <div class="col-md-12">
+                                <span>
+                                    <i class="glyphicon glyphicon-calendar">
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </i>
+                                    <i class="glyphicon glyphicon-time">
+                                        @Html.DisplayFor(modelItem => item.StartTime) - @Html.DisplayFor(modelItem => item.EndTime)
+                                    </i>
+                                </span>
+                            </div>
+                        </div>
+                        <!--<hr />
+                        <div class="row row text-right padding-right">
+                            <div class="col-md-12">
+                                <div>
+                                    <a type="button" href="/Task/Index" id="jobs" class="btn btn-primary btn-clear client-button">
+                                        Jobs
+                                    </a>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </li>
+            @Html.Action("EditTest","Admin", new { ID = item.TestID })
+            @Html.Action("DeleteTest","Admin", new { ID = item.TestID })
+            }
+    </ul>
+</div>
+
+<script>
+    function EditTest(id) {
+        $(function () {
+            $("#editModal" + id).addClass("in").css("display", "block").attr("aria-hidden", "false");
+            $("#editModal" + id).children().before("<div class='modal-backdrop fade in'></div>");
+        });
+    }
+
+    function closeEditTest(id) {
+        $(function () {
+            $("#editModal" + id).removeClass("in").css("display", "none").attr("aria-hidden", "true");
+            $("#editModal" + id).children(".modal-backdrop").remove();
+        });
+    }
+
+    function DeleteTest(id) {
+        $(function () {
+            $("#deleteModal" + id).addClass("in").css("display", "block").attr("aria-hidden", "false");
+            $("#deleteModal" + id).children().before("<div class='modal-backdrop fade in'></div>");
+        });
+    }
+
+    function closeDeleteTest(id) {
+        $(function () {
+            $("#deleteModal" + id).removeClass("in").css("display", "none").attr("aria-hidden", "true");
+            $("#deleteModal" + id).children(".modal-backdrop").remove();
+        });
+    }
+</script>
