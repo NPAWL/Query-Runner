@@ -17,8 +17,10 @@ namespace QueryRunner.Models
       public int QuestionMaxMark { get { return _model.MaxMark; } set { _model.MaxMark = value; } }
       [Required]
       public string QuestionAnswer { get { return _model.QuestionAnswer; } set { _model.QuestionAnswer = value; } }
+      public int QuestionNum { get; set; }
 
       public CreateQuestionViewModel() {}
+      public CreateQuestionViewModel(int i) { QuestionNum = i; }
       public CreateQuestionViewModel(ModelQuestion model) { _model = model; }
       public ModelQuestion ToDataModel() { return _model; }
 

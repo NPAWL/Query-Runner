@@ -1,0 +1,63 @@
+﻿@model QueryRunner.Models.DeleteTestViewModel
+<div class="modal fade" id="deleteModal" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content registerModalWidth">
+            <div class="modal-header">
+                <h3 class="modal-title">Delete Test</h3>
+                <div class="close-modal">
+                    <a data-dismiss="modal" class="close clickable" onclick="closeDeleteTest(@Model.TestID)">X</a>
+                </div>
+                <hr />
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("DeleteTestF","Admin",FormMethod.Post,new { @id = "deleteTest"+Model.TestID,@class = "form-horizontal" }))
+                    {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.TestID)
+                    @Html.HiddenFor(model => model.TestUsername)
+                    @Html.HiddenFor(model => model.TestActive)
+                    @Html.HiddenFor(model => model.TestStartTime)
+                    @Html.HiddenFor(model => model.TestEndTime)
+                    @Html.HiddenFor(model => model.TestName)
+                    @Html.HiddenFor(model => model.TestDate)
+                    <div class="form-group text-left">
+                        <label class="control-label textLeft col-md-4" for="TestUsername">Creator:</label>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(model => model.TestUsername,new { @class = "form-control, login-input",@id = "TestUsername",@name = "TestUsername" })
+                        </div>
+                    </div>
+                    <div class="form-group text-left">
+                        <label class="control-label textLeft col-md-4" for="TestDate">Date:</label>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(model => model.TestDate,new { @class = "form-control, login-input",@id = "TestDate",@name = "TestDate" })
+                        </div>
+                    </div>
+                    <div class="form-group text-left">
+                        <label class="control-label textLeft col-md-4" for="TestStartTime">Start Time:</label>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(model => model.TestStartTime,new { @class = "form-control, login-input",@id = "TestStartTime",@name = "TestStartTime" })
+                        </div>
+                    </div>
+                    <div class="form-group text-left">
+                        <label class="control-label textLeft col-md-4" for="TestEndTime">End Time:</label>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(model => model.TestEndTime,new { @class = "form-control, login-input",@id = "TestEndTime",@name = "TestEndTime" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-8"><input type="submit" value="Confirm" class="btn btn-primary btn-outline" /></div>
+                    </div>
+                    }
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#deleteModal").attr("id", "deleteModal"+@Model.TestID);
+    });
+</script>

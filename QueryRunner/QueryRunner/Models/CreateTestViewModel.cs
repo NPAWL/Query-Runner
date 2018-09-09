@@ -22,8 +22,7 @@ namespace QueryRunner.Models
       public DateTime TestEndTime { get { return _model.EndTime; } set { _model.EndTime = value; } }
       public List<CreateQuestionViewModel> Questions { get; set; }
       [Required]
-      public int NumberOfQuestions { get; set; }
-      public int QuestionNumber { get; set; }
+      public int NumberOfQuestions { get; set; }   
 
       public CreateTestViewModel() {}
       public CreateTestViewModel(ModelTest model) { _model = model; }

@@ -48,17 +48,21 @@ namespace QueryRunner.Controllers
                 return View(model);
             for (int i = 0; i < model.NumberOfQuestions; i++)
             {
-                model.Questions.Add(new CreateQuestionViewModel());
-            }
-            model.QuestionNumber = 1;
+                model.Questions.Add(new CreateQuestionViewModel(i+1));
+            }                          
             return View("CreateQuestion", model);
         }
 
         [HttpPost]
         public ActionResult CreateQuestion(CreateTestViewModel model)
         {
-
-            return View(model);
+            foreach (CreateQuestionViewModel item in model.Questions)
+            {
+                if (!item.IsValid())
+                    return View(model);
+            }
+            _testStore.CreateTest(model.ToDataModel(), User.Identity.Name, model.QuestionsToDataModel());
+            return RedirectToAction("Index", "Admin");
         }
 
         public ActionResult ViewTests()
