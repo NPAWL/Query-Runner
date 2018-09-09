@@ -185,12 +185,41 @@ namespace QueryRunner.Controllers
         [HttpGet]
         public ActionResult exportStudentAnswers()
         {
-            //TODO needs testing
             List<StudentTestQuestionAnswerModel> model = System.Web.HttpContext.Current.Session["Questions"] as List<StudentTestQuestionAnswerModel>;
             List<String> lines = new List<string>();
             lines.Add(String.Format("Username: {0}; Date: {1}", User.Identity.Name, DateTime.Now));
             lines.Add("\n<<<--------------------Questions-------------------->>>");
             model.ForEach(cur => lines.Add(cur.ToString()));
+            //Helper.ExportToTextFile(Response, lines);
+            MemoryStream memoryStream = Helper.ExportToTextFile(lines);
+            return File(memoryStream.GetBuffer(), "text/plain", User.Identity.Name + ".gaadw.txt");
+
+        }
+
+        [HttpGet]
+        public ActionResult exportAllStudentMarks()
+        {
+            int TestID = 0;
+            List<ModelQuestion> questionsRAW = _questionStore.GetQuestionsByTest(TestID).ToList();
+            List<ModelStudentAnswer> studentAnswers = _studentAnswerStore.GetStudentAnswersByTest(TestID).ToList();
+
+            Dictionary<int, int> questions = new Dictionary<int, int>();
+            questionsRAW.ForEach(cur => questions.Add(cur.QuestionID, cur.MaxMark));
+
+            Dictionary<String, Double> marks = new Dictionary<string, double>();
+            studentAnswers.ForEach(cur =>
+            {
+                double curMark = marks[cur.Username];
+                double mark = cur.MarkObtained / (questions[cur.QuestionID]);
+                marks[cur.Username] = (curMark + mark);
+            });
+
+            List<String> lines = new List<string>();
+            foreach (KeyValuePair<String, Double> entry in marks)
+            {
+                marks[entry.Key] = entry.Value / questions.Count;
+                lines.Add(String.Format("Username: {0}; Mark: {1}", entry.Key, marks[entry.Key]));
+            }
             //Helper.ExportToTextFile(Response, lines);
             MemoryStream memoryStream = Helper.ExportToTextFile(lines);
             return File(memoryStream.GetBuffer(), "text/plain", User.Identity.Name + ".gaadw.txt");
