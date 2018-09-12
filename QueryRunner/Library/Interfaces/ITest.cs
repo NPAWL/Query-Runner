@@ -12,6 +12,7 @@ namespace Library.Interfaces
         IQueryable<ModelTest> ReadTests();
         ModelTest GetTest(int testid);
         ModelTest GetTestByName(string testname);
+        IQueryable<ModelTest> GetTestsByUsername(string username);
         void CreateTest(ModelTest model);
         void CreateTest(ModelTest model, string username, List<ModelQuestion> questions);
         void DeleteTest(ModelTest model);

@@ -135,5 +135,10 @@ namespace QueryRunner.Controllers
             //return RedirectToLocal(returnUrl);
 
         }
+
+        public ActionResult ViewMarks(int ID)
+        {
+            return RedirectToAction("ViewMarks", "Student", new { TestID = ID });
+        }
     }
 }

@@ -7,6 +7,8 @@ using Library.Interfaces;
 using Library.Models;
 using QueryRunner.Models;
 using QueryRunner.Helpers;
+using System.Threading;
+using System.IO;
 
 namespace QueryRunner.Controllers
 {
@@ -68,14 +70,44 @@ namespace QueryRunner.Controllers
 
         }
 
-        public ActionResult ListStudents()
+        public ActionResult ViewMarks(int TestID)
         {
-            return View();
+            return View(getMarksModel(TestID));
+        }
+
+        private List<ViewStudentMarks> getMarksModel(int TestID)
+        {
+            Dictionary<int, int> questions = new Dictionary<int, int>();
+            _question.GetQuestionsByTest(TestID).ToList().ForEach(cur => questions.Add(cur.QuestionID, cur.MaxMark));
+
+            Dictionary<String, Double> marks = new Dictionary<string, double>();
+            _studentAnswer.GetStudentAnswersByTest(TestID).ToList().ForEach(cur =>
+            {
+                double curMark = 0;
+                if (marks.Keys.Contains(cur.Username))
+                    curMark = marks[cur.Username];
+                double mark = (cur.MarkObtained * 1.000) / (questions[cur.QuestionID]);
+                marks[cur.Username] = (curMark + mark);
+            });
+
+            List<ThreadStart> runners = new List<ThreadStart>();
+            List<ViewStudentMarks> model = new List<ViewStudentMarks>();
+            foreach (KeyValuePair<String, Double> entry in marks)
+            {
+                runners.Add(new ThreadStart(() =>
+                {
+                    marks[entry.Key] = Math.Round(entry.Value / questions.Count * 100, 2);
+                    model.Add(new ViewStudentMarks(TestID, entry.Key, marks[entry.Key]));
+                }));
+            }
+            runners.ForEach(cur => new Thread(cur).Start());
+            Session["modelViewStudentMarks"] = model;
+            return model;
         }
 
         public ActionResult GotoTest(int TestID)
         {
-            return RedirectToAction("ViewTest", "Test", new { TestID = TestID});
+            return RedirectToAction("ViewTest", "Test", new { TestID = TestID });
         }
 
         private String SumTestMarks(IQueryable<ModelQuestion> list)
@@ -114,6 +146,23 @@ namespace QueryRunner.Controllers
             {
                 return null;
             }
+        }
+
+        [HttpGet]
+        public ActionResult exportAllStudentMarks(String ID)
+        {
+            List<ViewStudentMarks> marksies = System.Web.HttpContext.Current.Session["modelViewStudentMarks"] as List<ViewStudentMarks>;
+            if (marksies == null)
+                marksies = getMarksModel(int.Parse(ID));
+
+            List<String> lines = new List<string>();
+            lines.Add(String.Format("Username: {0}; Date: {1}\n", User.Identity.Name, DateTime.Now));
+            lines.Add("Username\tMark\n");
+            marksies.ForEach(cur => lines.Add(String.Format("{0}\t{1}\n", cur.Name, cur.Presentage).ToString()));
+
+            MemoryStream memoryStream = Helper.ExportToTextFile(lines);
+            return File(memoryStream.GetBuffer(), "text/plain", User.Identity.Name + ".txt");
+
         }
     }
 }

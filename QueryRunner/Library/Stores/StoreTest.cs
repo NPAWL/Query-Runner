@@ -38,13 +38,15 @@ namespace Library.Stores
             return model.Get(_ctx).FirstOrDefault(x => x.TestName == testname);
         }
 
+
+
         public void CreateTest(ModelTest model)
         {
             using (var transaction = _ctx.Database.BeginTransaction())
             {
                 try
                 {
-                    model.TestActive = true;     
+                    model.TestActive = true;
 
                     var entity = model.ToEntity();
 
@@ -67,7 +69,7 @@ namespace Library.Stores
             {
                 try
                 {
-                    model.TestActive = true;   
+                    model.TestActive = true;
                     model.Username = username;
 
                     var entity = model.ToEntity();
@@ -135,9 +137,14 @@ namespace Library.Stores
 
         public void Each<T>(IEnumerable<T> items, Action<T> action)
         {
-          foreach (var item in items)
-            action(item);
+            foreach (var item in items)
+                action(item);
         }
 
+        public IQueryable<ModelTest> GetTestsByUsername(string username)
+        {
+            var model = new ModelTest();
+            return model.Get(_ctx).Where(x => x.Username == username);
+        }
     }
 }
