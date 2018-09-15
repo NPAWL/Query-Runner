@@ -28,6 +28,7 @@
 				@Html.DisplayFor(modelItem => item.StartTime)
 			</td>
 			<td>
+        @Html.ActionLink("Load Students", "AddStudentsToTest", new { ID = item.TestID }) |
 				@Html.ActionLink("Marks", "ViewMarks", new { ID = item.TestID }) |
 				@Html.ActionLink("Edit", "EditTest", new { ID = item.TestID }) |
 				@Html.ActionLink("Delete", "DeleteTest", new { ID = item.TestID })

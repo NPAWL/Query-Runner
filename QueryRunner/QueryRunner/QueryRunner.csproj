@@ -331,6 +331,7 @@
     <Content Include="Views\Admin\ViewTests.cshtml" />
     <Content Include="Views\Admin\DeleteTest.cshtml" />
     <Content Include="Views\Admin\EditTest.cshtml" />
+    <Content Include="Views\Admin\AddStudentsToTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
