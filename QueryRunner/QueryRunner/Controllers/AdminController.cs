@@ -140,5 +140,10 @@ namespace QueryRunner.Controllers
         {
             return RedirectToAction("ViewMarks", "Student", new { TestID = ID });
         }
+
+        public ActionResult AddStudentsToTest(int ID)
+        {
+            return View();
+        }
     }
 }
