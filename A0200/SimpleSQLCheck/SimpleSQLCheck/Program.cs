@@ -13,6 +13,7 @@ namespace SimpleSQLCheck {
          *              ==
          *          SELECT Person.ID FROM Person
          */
+        const RegexOptions options = RegexOptions.IgnoreCase;
 
         public static void Main(string[] args) {
             //Splitting the statement into parts
@@ -26,14 +27,14 @@ namespace SimpleSQLCheck {
 
             //String question = "SELECT Name, Surname, (Age+10) as Age From People where ID = 5 order by Surname ASC Group by Age";
             string answer =
-                "SELECT Name, Surname, (Age+10) as Age From People where ID = 5 order by Surname ASC Group by Age";
+                "SELECT Name, Surname, (Age+10) as Age From People where ID=     5 order by Surname ASC Group by Age";
+            answer = Regex.Replace(answer, "=", " = ");
             answer.Replace("\n", "");
             answer.Replace("\r", "");
             answer.Replace("\t", " ");
             answer.Replace("  ", " ");
             //NO SUBQUERIES! SELECT, FROM, WHERE, ORDER BY, GROUP BY
-            const string pattern_SFWOG = @"(.+?(?=from))|(.+(?= where))| (.+(?= order by))| (.+(?= group by))| (.*)";
-            const RegexOptions options = RegexOptions.IgnoreCase;
+            const string pattern_SFWOG = @"(.+?(?=from))|(.+(?= where))| | (.+(?= group by))| (.*)";
             List<string> parts_Q = Regex.Split(question, pattern_SFWOG, options).ToList();
             List<string> parts_A = Regex.Split(answer, pattern_SFWOG, options).ToList();
             parts_Q.RemoveAll(cur => cur.Equals(""));
@@ -86,27 +87,41 @@ namespace SimpleSQLCheck {
 
         private static double DoWhere(IEnumerable<string> answer, IEnumerable<string> question) {
             //Checking WHERE
-            /*string whereQ = Get("WHERE", question);
-            string whereA = Get("WHERE", answer);*/
-            return 0;
+            string whereQ = Get("WHERE", question);
+            string whereA = Get("WHERE", answer);
+            List<String> conditionsQ = Regex.Split(whereQ, " and | or ", options).ToList();
+            List<String> conditionsA = Regex.Split(whereA, " and | or ", options).ToList();
+            double count = 0;
+            conditionsQ.ForEach(cur => {
+                if (conditionsQ.Contains(cur)) count++;
+            });
+            return (count * 1.00) / conditionsA.Count();
         }
 
         private static double DoGroupBy(IEnumerable<string> answer, IEnumerable<string> question) {
             //Checking ORDER BY
-            /*
             string odbyQ = Get("ORDER BY", question);
-            string odbyA = Get("ORDER BY", answer);*/
-            return 0;
+            string odbyA = Get("ORDER BY", answer);
+            List<String> groupsQ = odbyQ.Split(',').ToList();
+            List<String> groupsA = odbyA.Split(',').ToList();
+            double count = 0;
+            groupsQ.ForEach(cur => {
+                if (groupsQ.Contains(cur)) count++;
+            });
+            return (count * 1.00) / groupsA.Count();
         }
 
         private static double DoOrderBy(IEnumerable<string> answer, IEnumerable<string> question) {
             //Checking GROUP BY
-            /*string GPBY_Q = Get("GROUP BY", question);
+            string GPBY_Q = Get("GROUP BY", question);
             string GPBY_A = Get("GROUP BY", answer);
-
-*/
-
-            return 0;
+            List<String> groupsQ = GPBY_Q.Split(',').ToList();
+            List<String> groupsA = GPBY_A.Split(',').ToList();
+            double count = 0;
+            groupsQ.ForEach(cur => {
+                if (groupsQ.Contains(cur)) count++;
+            });
+            return (count * 1.00) / groupsA.Count();
         }
 
 
