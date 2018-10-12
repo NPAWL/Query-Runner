@@ -58,6 +58,8 @@ namespace QueryRunner.Controllers {
             return RedirectToAction("Index", "Admin");
         }
 
+
+
         public ActionResult ViewStudentAccess(int TestID) {
             ModelTest curTest = _testStore.GetTest(TestID);
             ViewBag.Time = curTest.EndTime - curTest.StartTime;
