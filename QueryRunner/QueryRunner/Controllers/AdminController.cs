@@ -49,7 +49,7 @@ namespace QueryRunner.Controllers
             {
                 return RedirectToAction("Index", "Admin");
             }
-          _userStore.CreateUser(model.ToDataModel(), "Admin");
+          _userStore.CreateUser(model.ToDataModel(), "admin");
           return RedirectToAction("Index", "Admin");
         }
 
