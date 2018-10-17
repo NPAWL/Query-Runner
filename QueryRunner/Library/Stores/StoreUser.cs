@@ -37,7 +37,7 @@ namespace Library.Stores
             var model = new ModelUser();
             StoreUserRole userRoleStore = new StoreUserRole(_ctx);
             List<ModelUser> final = new List<ModelUser>();
-            List<ModelUserRole> adminURs = userRoleStore.ReadUserRoles().Where(x => x.RoleName == "Admin").ToList();
+            List<ModelUserRole> adminURs = userRoleStore.ReadUserRoles().Where(x => x.RoleName == "admin").ToList();
             foreach (ModelUserRole item in adminURs)
               {
                 final.Add(GetUser(item.Username));
@@ -50,7 +50,7 @@ namespace Library.Stores
             var model = new ModelUser();
             StoreUserRole userRoleStore = new StoreUserRole(_ctx); 
             List<ModelUser> final = new List<ModelUser>();
-            List<ModelUserRole> studentURs = userRoleStore.ReadUserRoles().Where(x => x.RoleName == "Student").ToList();
+            List<ModelUserRole> studentURs = userRoleStore.ReadUserRoles().Where(x => x.RoleName == "student").ToList();
             foreach (ModelUserRole item in studentURs)
               {
                 final.Add(GetUser(item.Username));

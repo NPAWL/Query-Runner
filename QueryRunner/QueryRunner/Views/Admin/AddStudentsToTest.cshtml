@@ -4,5 +4,24 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+@model QueryRunner.Models.AddStudentsToTestModel
+
 <h2>AddStudentsToTest</h2>
 
+<div class="modal-body">
+	@using (Html.BeginForm("AddStudentsToTest", "Admin", FormMethod.Post, new { @id = "addStudentsToTest", @class = "form-horizontal", @enctype = "multipart/form-data" })) {
+		@Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.TestID)
+    <div class="form-group text-left">
+      <label class="control-label textLeft col-md-4" for="file">File upload:</label>
+      <div class="col-md-8">
+        <input class="form-control, login-input" data-val="true" data-val-required="The file field is required." id="file" name="file" placeholder="Students.txt" type="file" accept=".txt" value="" />
+        <!--Html.TextBoxFor(model => model.file, new { class = "form-control, login-input", id = "file", name = "file", type = "file", accept = "image/*", placeholder = "Skip Photo", value = "" })-->
+        <!--<span class="field-validation-valid text-danger" data-valmsg-for="SkipPhoto" data-valmsg-replace="true"></span>-->
+      </div>
+    </div>
+		<div class="form-group">
+			<div class="col-md-offset-4 col-md-8"><input type="submit" value="Upload" class="btn btn-primary btn-outline" /></div>
+		</div>
+	}
+</div>

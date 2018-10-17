@@ -49,7 +49,7 @@ namespace QueryRunner.Controllers
             {
                 return RedirectToAction("Index", "Admin");
             }
-          _userStore.CreateUser(model.ToDataModel(), "Admin");
+          _userStore.CreateUser(model.ToDataModel(), "admin");
           return RedirectToAction("Index", "Admin");
         }
 
@@ -142,8 +142,21 @@ namespace QueryRunner.Controllers
         }
 
         public ActionResult AddStudentsToTest(int ID)
-        {
-            return View();
+        {         
+            return View(new AddStudentsToTestModel(ID));
+        }
+
+        [HttpPost]
+        public ActionResult AddStudentsToTest(AddStudentsToTestModel model)
+        {         
+            if (!ModelState.IsValid)
+              {
+                return View(model);
+              }
+
+
+
+            return RedirectToAction("ViewTests", "Admin");
         }
     }
 }
