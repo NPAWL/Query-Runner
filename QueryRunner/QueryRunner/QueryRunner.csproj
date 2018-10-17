@@ -345,6 +345,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\A0200\SimpleSQLCheck\SimpleSQLCheck\SimpleSQLCheck.csproj">
+      <Project>{c65a9ad1-fd60-437b-b46b-b5ede0032cf5}</Project>
+      <Name>SimpleSQLCheck</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj">
       <Project>{5255ad6b-bf23-413a-9219-e2df470598ef}</Project>
       <Name>DataLayer</Name>
