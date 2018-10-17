@@ -32,7 +32,10 @@
             <md-content layout="row" layout-align="center center">
                 @Html.ActionLink("Export Marks", "exportStudentAnswers", "Test")
             </md-content>
-            <md-button id="updateFeedback" class="btnBlue" onclick="updateFeedback()">Exit Test</md-button>
+            <md-button id="updateFeedback" class="btnBlue" onclick="updateFeedback()">Submit feedback</md-button>
+            <md-content layout="row" layout-align="center center">
+                @Html.ActionLink("Back to Home page", "ExitTestReview", "Test")
+            </md-content>
         </div>
 
         <md-content>

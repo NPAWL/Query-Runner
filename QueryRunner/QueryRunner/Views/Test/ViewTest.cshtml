@@ -27,12 +27,13 @@
 					</md-card-content>
 
 
-					<md-card-actions layout="row" layout-align="start center">
-						<md-button class="btnBlue">Paste</md-button>
-						<span flex></span>
-						<input class="btnBlue" type="submit" value="Submit" />
-						<md-button class="btnBlue">Clear</md-button>
-					</md-card-actions>
+                    <md-card-actions layout="row" layout-align="start center">
+                        <md-button class="btnBlue">Paste</md-button>
+                        <span flex></span>
+                        <input class="btnBlue" type="submit" value="Submit" />
+                        <md-button class="btnBlue">Clear</md-button>
+                        @Html.ActionLink("Submit All and finish", "ExitTest", new { },new { onclick = "return confirm('Are you sure you are done with your test? There is no turning back now!');" })
+                    </md-card-actions>
 				</md-card>
 			}
 
