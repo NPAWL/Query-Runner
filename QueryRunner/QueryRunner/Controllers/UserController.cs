@@ -23,9 +23,9 @@ namespace QueryRunner.Controllers
         }
 
         // GET: User
-        public ActionResult Index()
+        /*public ActionResult Index()
         {
             return View();
-        }
+        }*/
     }
 }
