@@ -80,6 +80,7 @@ namespace Library.Stores
                 try
                 {
                     model.TokenActive = true;
+                    model.TokenString = RandomString();
                     model.Username = username;
                     model.TestID = testid;
 
@@ -109,6 +110,7 @@ namespace Library.Stores
 
                     Each(usernames, x => {
 
+                    model.TokenString = RandomString();
                     model.Username = x;
 
                     var entity = model.ToEntity();
@@ -179,6 +181,14 @@ namespace Library.Stores
           foreach (var item in items)
             action(item);
         }
+              
+        private static string RandomString()
+          {
+            Random random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            const int length = 100;
+            return new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+          }
 
     }
 }

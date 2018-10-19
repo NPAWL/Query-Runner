@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -152,11 +153,36 @@ namespace QueryRunner.Controllers
             if (!ModelState.IsValid)
               {
                 return View(model);
-              }
+              } 
+            ModelTest test = _testStore.GetTest(model.TestID);  
+            Stream inStream = model.file.InputStream;      
+            StreamReader sr = new StreamReader(inStream);
+            try {
+              List<string> usernames = new List<string>();
+              while (!sr.EndOfStream)
+                {
+                  ModelUser user = new ModelUser();
+                  string str = sr.ReadLine();
+                  string[] userDetails = str.Split(',');
+                  user.Username = userDetails[0];
+                  user.PasswordHash = userDetails[1];
+                  usernames.Add(userDetails[0]);
+                  if (_userStore.GetUser(user.Username).Username != user.Username)
+                    _userStore.CreateUser(user,"student");  
+                }
+              sr.Close();
+              ModelToken token = new ModelToken();
+              token.CreatedTime = DateTime.Now;
+              DateTime date = test.Date; DateTime time = test.EndTime; time.AddHours(1);
+              date.AddHours(time.Hour);date.AddMinutes(time.Minute);
+              token.ExpiredTime = date;
+              _tokenStore.CreateToken(token,usernames.ToArray(),model.TestID);
+              return RedirectToAction("ViewTests", "Admin");
+            } catch (Exception e) {      
+              sr.Close();
+              return RedirectToAction("About", "Home");
+            }
 
-
-
-            return RedirectToAction("ViewTests", "Admin");
         }
     }
 }
