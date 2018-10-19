@@ -32,6 +32,12 @@ namespace Library.Stores
             return model.Get(_ctx).FirstOrDefault(x => x.TokenID == tokenid);
         }
 
+        public ModelToken GetTokenByUsernameAndTest(string username, int testid)
+        {
+            var model = new ModelToken();
+            return model.Get(_ctx).Where(x => x.Username == username).FirstOrDefault(x => x.TestID == testid);
+        }
+
         public IQueryable<ModelToken> GetTokensByUsername(string username)
         {
             var model = new ModelToken();
@@ -110,15 +116,18 @@ namespace Library.Stores
 
                     Each(usernames, x => {
 
+                    ModelToken check = GetTokenByUsernameAndTest(x,testid);
+                    if (check == null) {
+
                     model.TokenString = RandomString();
-                    model.Username = x;
+                    model.Username = x;  
 
                     var entity = model.ToEntity();
 
                     _ctx.Insert(entity);
                     _ctx.SaveChanges();  
                     
-                    });
+                    }});
 
                     transaction.Commit();
                 }

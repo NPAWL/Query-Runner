@@ -11,6 +11,7 @@ namespace Library.Interfaces
     {
         IQueryable<ModelToken> ReadTokens();
         ModelToken GetToken(int tokenid);
+        ModelToken GetTokenByUsernameAndTest(string username, int testid);
         IQueryable<ModelToken> GetTokensByUsername(string username);
         IQueryable<ModelToken> GetTokensByTest(int testid);
         IQueryable<ModelToken> GetTokensByTokenString(string tokenstring);
