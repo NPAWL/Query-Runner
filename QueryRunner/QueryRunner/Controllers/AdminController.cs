@@ -75,7 +75,7 @@ namespace QueryRunner.Controllers
                 return RedirectToAction("Delete", "Admin");
             }
           List<ModelUserRole> UR = _userRoleStore.GetUserRolesByUser(model.Username).ToList();
-          Helper.FEach(UR, x => _userRoleStore.DeleteUserRole(x)); 
+          HelpingClass.FEach(UR, x => _userRoleStore.DeleteUserRole(x)); 
           _userStore.DeleteUser(model);
           return RedirectToAction("Delete", "Admin");;
         }
@@ -102,7 +102,7 @@ namespace QueryRunner.Controllers
                 return RedirectToAction("ViewTests", "Admin");
             }
           _testStore.UpdateTest(model.ToDataModel());   
-          Helper.FEach(model.Questions, x => _questionStore.UpdateQuestion(x));
+          HelpingClass.FEach(model.Questions, x => _questionStore.UpdateQuestion(x));
           return RedirectToAction("ViewTests", "Admin");
         }
 

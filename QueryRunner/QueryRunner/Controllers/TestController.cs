@@ -70,6 +70,29 @@ namespace QueryRunner.Controllers {
             return View();
         }
 
+        public ActionResult getDB() {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult getDB(HttpPostedFileBase file) {
+            if (file.ContentLength > 0) {
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                file.SaveAs(path);
+            }
+            DatabaseHandler.Setup("Provider=Microsoft.ACE.OLEDB.12.0;Data Source="+Server.MapPath("~/App_Data/uploads/db")+"; Persist Security Info=False");
+            return RedirectToAction("ViewTest", new {});
+ /*
+You should be careful with this code, because unless you have some special routing rules in place, you've introduced a vulnerability!
+Say I upload a file called haacked.aspx, then I can just browse to <site>/uploads/haacked.aspx and execute whatever c# code I want on your server.
+You should probably either:
+a) make a note of this in your post so that it doesn't bite people who use this code
+b) move the upload path outside of the webroot or
+c) include some fancy routing rule to stop this
+ */
+        }
+
         //Student view test
         [Authorize]
         public ActionResult ViewTest(int TestID) {
@@ -125,12 +148,15 @@ namespace QueryRunner.Controllers {
                 return RedirectToAction("ViewTestResults");
             }
 
+            //return RedirectToAction("getDB");
             return View(testQuestions.First());
         }
 
         [Authorize]
         [HttpPost]
         public ActionResult ViewTest(StudentTestQuestionAnswerModel testViewModel) {
+            if (testViewModel == null)
+                return View(StudentTestQuestionAnswerModel.instance.First());
             if (!ModelState.IsValid)
                 return View(testViewModel);
             //  List<StudentTestQuestionAnswerModel> testQuestions = System.Web.HttpContext.Current.Session["Questions"] as List<StudentTestQuestionAnswerModel>;
@@ -148,8 +174,9 @@ namespace QueryRunner.Controllers {
                 }
             }
 
+            this.ViewData = null;
             if (nextQuestion == null) {
-                return View(testViewModel);
+                return View(StudentTestQuestionAnswerModel.instance.First());
                 //return SaveToDatabase(testQuestions);
             }
 
@@ -238,7 +265,7 @@ namespace QueryRunner.Controllers {
             lines.Add("\n<<<--------------------Questions-------------------->>>");
             model.ForEach(cur => lines.Add(cur.ToString()));
             //Helper.ExportToTextFile(Response, lines);
-            MemoryStream memoryStream = Helper.ExportToTextFile(lines);
+            MemoryStream memoryStream = HelpingClass.ExportToTextFile(lines);
             return File(memoryStream.GetBuffer(), "text/plain", User.Identity.Name + ".gaadw.txt");
         }
     }

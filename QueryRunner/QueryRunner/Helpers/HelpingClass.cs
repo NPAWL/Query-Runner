@@ -9,7 +9,7 @@ using System.Web;
 
 namespace QueryRunner.Helpers
 {
-    public class Helper
+    public class HelpingClass
     {
         public static MemoryStream ExportToTextFile(List<String> lines)
         {

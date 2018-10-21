@@ -160,7 +160,7 @@ namespace QueryRunner.Controllers
             lines.Add("Username\tMark\n");
             marksies.ForEach(cur => lines.Add(String.Format("{0}\t{1}\n", cur.Name, cur.Presentage).ToString()));
 
-            MemoryStream memoryStream = Helper.ExportToTextFile(lines);
+            MemoryStream memoryStream = HelpingClass.ExportToTextFile(lines);
             return File(memoryStream.GetBuffer(), "text/plain", User.Identity.Name + ".txt");
 
         }
