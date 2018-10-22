@@ -167,7 +167,7 @@ namespace QueryRunner.Controllers
                   user.Username = userDetails[0];
                   user.PasswordHash = userDetails[1];
                   usernames.Add(userDetails[0]);
-                  if (_userStore.GetUser(user.Username).Username != user.Username)
+                  if (_userStore.GetUser(user.Username) == null)
                     _userStore.CreateUser(user,"student");  
                 }
               sr.Close();
@@ -180,7 +180,7 @@ namespace QueryRunner.Controllers
               return RedirectToAction("ViewTests", "Admin");
             } catch (Exception e) {      
               sr.Close();
-              return RedirectToAction("About", "Home");
+              return RedirectToAction("ViewTests", "Admin");
             }
 
         }

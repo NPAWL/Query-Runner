@@ -1,6 +1,5 @@
 ﻿@model List<Library.Models.ModelTest>
 @{
-	/**/
 
 	ViewBag.Title = "ViewTests";
 	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -27,12 +26,16 @@
 			<td>
 				@Html.DisplayFor(modelItem => item.StartTime)
 			</td>
-			<td>
-        @Html.ActionLink("Load Students", "AddStudentsToTest", new { ID = item.TestID }) |
-				@Html.ActionLink("Marks", "ViewMarks", new { ID = item.TestID }) |
-				@Html.ActionLink("Edit", "EditTest", new { ID = item.TestID }) |
-				@Html.ActionLink("Delete", "DeleteTest", new { ID = item.TestID })
-			</td>
+            <td>
+                @Html.ActionLink("Load Students", "AddStudentsToTest", new { ID = item.TestID }) |
+                @Html.ActionLink("Marks", "ViewMarks", new { ID = item.TestID }) |
+                <a class="clickable" onclick="EditTest(@Html.ValueFor(modelItem => item.TestID))"><i class="glyphicon glyphicon-pencil gi-md greenDD"></i></a> |
+                <a class="clickable" onclick="DeleteTest(@Html.ValueFor(modelItem => item.TestID))"><i class="glyphicon glyphicon-trash gi-md greenDD"></i></a>
+                @Html.Action("EditTest", "Admin", new { ID = item.TestID })
+                @Html.Action("DeleteTest", "Admin", new { ID = item.TestID })
+                @*@Html.ActionLink("Edit", "EditTest", new { ID = item.TestID }) |
+                @Html.ActionLink("Delete", "DeleteTest", new { ID = item.TestID })*@
+            </td>
 		</tr>
 	}
 </table>
@@ -78,34 +81,34 @@
 				@Html.Action("DeleteTest","Admin", new { ID = item.TestID })
 				}
 		</ul>
-	</div>
+	</div>*@
 
 	<script>
 		function EditTest(id) {
-			$(function () {
+			$(document).ready(function () {
 				$("#editModal" + id).addClass("in").css("display", "block").attr("aria-hidden", "false");
-				$("#editModal" + id).children().before("<div class='modal-backdrop fade in'></div>");
+				//$("#editModal" + id).children().before("<div class='modal-backdrop fade in'></div>");
 			});
 		}
 
 		function closeEditTest(id) {
-			$(function () {
+            $(document).ready(function () {
 				$("#editModal" + id).removeClass("in").css("display", "none").attr("aria-hidden", "true");
-				$("#editModal" + id).children(".modal-backdrop").remove();
+				//$("#editModal" + id).children(".modal-backdrop").remove();
 			});
 		}
 
 		function DeleteTest(id) {
-			$(function () {
+            $(document).ready(function () {
 				$("#deleteModal" + id).addClass("in").css("display", "block").attr("aria-hidden", "false");
-				$("#deleteModal" + id).children().before("<div class='modal-backdrop fade in'></div>");
+				//$("#deleteModal" + id).children().before("<div class='modal-backdrop fade in'></div>");
 			});
 		}
 
 		function closeDeleteTest(id) {
-			$(function () {
+            $(document).ready(function () {
 				$("#deleteModal" + id).removeClass("in").css("display", "none").attr("aria-hidden", "true");
-				$("#deleteModal" + id).children(".modal-backdrop").remove();
+				//$("#deleteModal" + id).children(".modal-backdrop").remove();
 			});
 		}
-	</script>*@
+	</script>

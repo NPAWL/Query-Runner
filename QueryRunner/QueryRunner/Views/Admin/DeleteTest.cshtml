@@ -57,7 +57,7 @@
 </div>
 
 <script>
-    $(function () {
-        $("#deleteModal").attr("id", "deleteModal"+@Model.TestID);
+    $(document).ready(function () {
+        $("#deleteModal").attr("id", "deleteModal"+"@Model.TestID");
     });
 </script>

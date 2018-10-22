@@ -28,14 +28,14 @@
 
 <script>
   function DeleteAdmin(id) {
-    $(function () {
+    $(document).ready(function () {
       $("#deleteModal" + id).addClass("in").css("display", "block").attr("aria-hidden", "false");
       $("#deleteModal" + id).children().before("<div class='modal-backdrop fade in'></div>");
     });
   }
 
   function closeDeleteAdmin(id) {
-    $(function () {
+    $(document).ready(function () {
       $("#deleteModal" + id).removeClass("in").css("display", "none").attr("aria-hidden", "true");
       $("#deleteModal" + id).children(".modal-backdrop").remove();
     });

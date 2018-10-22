@@ -61,31 +61,31 @@
                                                 <div class="col-md-12">
                                                     <!--<span>-->
                                                     <div class="form-group text-left">
-                                                        <label class="control-label textLeft col-md-4" for="Instruction+@item.QuestionID">Instruction:</label>
+                                                        <label class="control-label textLeft col-md-4" for="Instruction@item.QuestionID">Instruction:</label>
                                                         <div class="col-md-8">
-                                                            @Html.TextAreaFor(model => item.Instruction,new { @class = "form-control, login-input",@id = "Instruction"+item.QuestionID,@name = "Instruction"+item.QuestionID,@placeholder = "Question Instruction" })
-                                                            @Html.ValidationMessageFor(model => item.Instruction,"",new { @class = "text-danger field-validation-valid" })
+                                                            @Html.TextAreaFor(x => x.Questions.Find(y => y.QuestionID == item.QuestionID).Instruction,new { @class = "form-control, login-input",@id = "Instruction"+item.QuestionID,@name = "Instruction"+item.QuestionID,@placeholder = "Question Instruction" })
+                                                            @Html.ValidationMessageFor(x => x.Questions.Find(y => y.QuestionID == item.QuestionID).Instruction,"",new { @class = "text-danger field-validation-valid" })
                                                         </div>
                                                     </div>
                                                     <div class="form-group text-left">
-                                                        <label class="control-label textLeft col-md-4" for="QuestionAnswer+@item.QuestionID">Answer query:</label>
+                                                        <label class="control-label textLeft col-md-4" for="QuestionAnswer@item.QuestionID">Answer query:</label>
                                                         <div class="col-md-8">
-                                                            @Html.TextAreaFor(model => item.QuestionAnswer,new { @class = "form-control, login-input",@id = "QuestionAnswer"+item.QuestionID,@name = "QuestionAnswer"+item.QuestionID,@placeholder = "SQL query that produces the answer" })
-                                                            @Html.ValidationMessageFor(model => item.QuestionAnswer,"",new { @class = "text-danger field-validation-valid" })
+                                                            @Html.TextAreaFor(x => x.Questions.Find(y => y.QuestionID == item.QuestionID).QuestionAnswer,new { @class = "form-control, login-input",@id = "QuestionAnswer"+item.QuestionID,@name = "QuestionAnswer"+item.QuestionID,@placeholder = "SQL query that produces the answer" })
+                                                            @Html.ValidationMessageFor(x => x.Questions.Find(y => y.QuestionID == item.QuestionID).QuestionAnswer,"",new { @class = "text-danger field-validation-valid" })
                                                         </div>
                                                     </div>
                                                     <div class="form-group text-left">
-                                                        <label class="control-label textLeft col-md-4" for="MaxMark+@item.QuestionID">Max mark:</label>
+                                                        <label class="control-label textLeft col-md-4" for="MaxMark@item.QuestionID">Max mark:</label>
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => item.MaxMark,new { @class = "form-control, login-input",@id = "MaxMark"+item.QuestionID,@name = "MaxMark"+item.QuestionID,@type = "number",@min = "1",@step = "1" })
-                                                            @Html.ValidationMessageFor(model => item.MaxMark,"",new { @class = "text-danger field-validation-valid" })
+                                                            @Html.TextBoxFor(x => x.Questions.Find(y => y.QuestionID == item.QuestionID).MaxMark,new { @class = "form-control, login-input",@id = "MaxMark"+item.QuestionID,@name = "MaxMark"+item.QuestionID,@type = "number",@min = "1",@step = "1" })
+                                                            @Html.ValidationMessageFor(x => x.Questions.Find(y => y.QuestionID == item.QuestionID).MaxMark,"",new { @class = "text-danger field-validation-valid" })
                                                         </div>
                                                     </div>
                                                     <div class="form-group text-left">
-                                                        <label class="control-label textLeft col-md-4" for="QuestionActive+@item.QuestionID">Uncheck to delete:</label>
+                                                        <label class="control-label textLeft col-md-4" for="QuestionActive@item.QuestionID">Uncheck to delete:</label>
                                                         <div class="col-md-8">
-                                                            @Html.CheckBoxFor(model => item.QuestionActive,new { @class = "form-control, login-input",@id = "QuestionActive"+item.QuestionID,@name = "QuestionActive"+item.QuestionID })
-                                                            @Html.ValidationMessageFor(model => item.QuestionActive,"",new { @class = "text-danger field-validation-valid" })
+                                                            @Html.CheckBoxFor(x => x.Questions.Find(y => y.QuestionID == item.QuestionID).QuestionActive,new { @class = "form-control, login-input",@id = "QuestionActive"+item.QuestionID,@name = "QuestionActive"+item.QuestionID })
+                                                            @Html.ValidationMessageFor(x => x.Questions.Find(y => y.QuestionID == item.QuestionID).QuestionActive,"",new { @class = "text-danger field-validation-valid" })
                                                         </div>
                                                     </div>
                                                     <!--<div class="form-group text-left">
@@ -143,7 +143,7 @@
 </div>
 
 <script>
-    $(function () {
-        $("#editModal").attr("id", "editModal"+@Model.TestID);
+    $(document).ready(function () {
+        $("#editModal").attr("id", "editModal"+"@Model.TestID");
     });
 </script>

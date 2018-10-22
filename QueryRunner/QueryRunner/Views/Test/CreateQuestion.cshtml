@@ -29,30 +29,48 @@
                             <div class="row text-left padding-left">
                                 <div class="col-md-12">
                                     <!--<span>-->
-
                                     <div class="form-group text-left">
-                                        <label class="control-label textLeft col-md-4" for="QuestionInstruction+@item.QuestionNum">Instruction:</label>
+                                        <label class="control-label textLeft col-md-4" for="QuestionInstruction@item.QuestionNum">Instruction:</label>
                                         <div class="col-md-8">
-                                            <textarea class="form-control, login-input" data-val="true" data-val-required="The instruction field is required." id="QuestionInstruction+@item.QuestionNum" name="QuestionInstruction">Question Instruction</textarea>
-                                            <span class="field-validation-valid text-danger" data-valmsg-for="QuestionInstruction+@item.QuestionNum" data-valmsg-replace="true"></span>
+                                            @Html.TextAreaFor(x => x.Questions[item.QuestionNum-1].QuestionInstruction, new { @class = "form-control, login-input", @id = "QuestionInstruction"+@item.QuestionNum, @name = "QuestionInstruction", @placeholder = "Question Instruction" })
+                                            @Html.ValidationMessageFor(x => x.Questions[item.QuestionNum-1].QuestionInstruction, "", new { @class = "text-danger field-validation-valid" })
                                         </div>
                                     </div>
-
                                     <div class="form-group text-left">
-                                        <label class="control-label textLeft col-md-4" for="QuestionAnswer+@item.QuestionNum">Answer query:</label>
+                                        <label class="control-label textLeft col-md-4" for="QuestionAnswer@item.QuestionNum">Answer query:</label>
                                         <div class="col-md-8">
-                                            <textarea class="form-control, login-input" data-val="true" data-val-required="The answer field is required." id="QuestionAnswer+@item.QuestionNum" name="QuestionAnswer">SQL query that produces the answer</textarea>
-                                            <span class="field-validation-valid text-danger" data-valmsg-for="QuestionAnswer+@item.QuestionNum" data-valmsg-replace="true"></span>
+                                            @Html.TextAreaFor(x => x.Questions[item.QuestionNum-1].QuestionAnswer, new { @class = "form-control, login-input", @id = "QuestionAnswer"+@item.QuestionNum, @name = "QuestionAnswer", @placeholder = "SQL query that produces the answer" })
+                                            @Html.ValidationMessageFor(x => x.Questions[item.QuestionNum-1].QuestionAnswer, "", new { @class = "text-danger field-validation-valid" })
                                         </div>
                                     </div>
-
                                     <div class="form-group text-left">
-                                        <label class="control-label textLeft col-md-4" for="QuestionMaxMark+@item.QuestionNum">Max mark:</label>
+                                        <label class="control-label textLeft col-md-4" for="QuestionMaxMark@item.QuestionNum">Max mark:</label>
                                         <div class="col-md-8">
-                                            <input class="form-control, login-input" data-val="true" data-val-required="The mark field is required." id="QuestionMaxMark+@item.QuestionNum" name="QuestionMaxMark" type="number" min="1" step="1" value="1" />
-                                            <span class="field-validation-valid text-danger" data-valmsg-for="QuestionMaxMark+@item.QuestionNum" data-valmsg-replace="true"></span>
+                                            @Html.TextBoxFor(x => x.Questions[item.QuestionNum-1].QuestionMaxMark, new { @class = "form-control, login-input", @id = "QuestionMaxMark"+@item.QuestionNum, @name = "QuestionMaxMark", @type = "number", @min = "1", @step = "1", @value = "1" })
+                                            @Html.ValidationMessageFor(x => x.Questions[item.QuestionNum-1].QuestionMaxMark, "", new { @class = "text-danger field-validation-valid" })
                                         </div>
                                     </div>
+                                    <!--<div class="form-group text-left">
+                                        <label class="control-label textLeft col-md-4" for="QuestionInstruction+item.QuestionNum">Instruction:</label>
+                                        <div class="col-md-8">
+                                            <textarea class="form-control, login-input" data-val="true" data-val-required="The instruction field is required." id="QuestionInstruction+item.QuestionNum" name="QuestionInstruction">Question Instruction</textarea>
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="QuestionInstruction+item.QuestionNum" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group text-left">
+                                        <label class="control-label textLeft col-md-4" for="QuestionAnswer@item.QuestionNum">Answer query:</label>
+                                        <div class="col-md-8">
+                                            <textarea class="form-control, login-input" data-val="true" data-val-required="The answer field is required." id="QuestionAnswer+item.QuestionNum" name="QuestionAnswer">SQL query that produces the answer</textarea>
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="QuestionAnswer+item.QuestionNum" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group text-left">
+                                        <label class="control-label textLeft col-md-4" for="QuestionMaxMark+item.QuestionNum">Max mark:</label>
+                                        <div class="col-md-8">
+                                            <input class="form-control, login-input" data-val="true" data-val-required="The mark field is required." id="QuestionMaxMark+item.QuestionNum" name="QuestionMaxMark" type="number" min="1" step="1" value="1" />
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="QuestionMaxMark+item.QuestionNum" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </div>-->
                                     <!--</span>-->
                                 </div>
                             </div>
