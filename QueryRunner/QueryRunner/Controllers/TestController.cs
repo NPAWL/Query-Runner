@@ -70,28 +70,26 @@ namespace QueryRunner.Controllers {
             return View();
         }
 
-        public ActionResult getDB() {
-            return View();
-        }
-
-        [HttpPost]
+        /*[HttpPost]
         public ActionResult getDB(HttpPostedFileBase file) {
             if (file.ContentLength > 0) {
                 var fileName = Path.GetFileName(file.FileName);
                 var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
                 file.SaveAs(path);
             }
-            DatabaseHandler.Setup("Provider=Microsoft.ACE.OLEDB.12.0;Data Source="+Server.MapPath("~/App_Data/uploads/db")+"; Persist Security Info=False");
-            return RedirectToAction("ViewTest", new {});
- /*
-You should be careful with this code, because unless you have some special routing rules in place, you've introduced a vulnerability!
-Say I upload a file called haacked.aspx, then I can just browse to <site>/uploads/haacked.aspx and execute whatever c# code I want on your server.
-You should probably either:
-a) make a note of this in your post so that it doesn't bite people who use this code
-b) move the upload path outside of the webroot or
-c) include some fancy routing rule to stop this
- */
-        }
+
+            DatabaseHandler.Setup("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+                                  Server.MapPath("~/App_Data/uploads/db") + "; Persist Security Info=False");
+            return RedirectToAction("ViewTest", new { });
+            /*
+           You should be careful with this code, because unless you have some special routing rules in place, you've introduced a vulnerability!
+           Say I upload a file called haacked.aspx, then I can just browse to <site>/uploads/haacked.aspx and execute whatever c# code I want on your server.
+           You should probably either:
+           a) make a note of this in your post so that it doesn't bite people who use this code
+           b) move the upload path outside of the webroot or
+           c) include some fancy routing rule to stop this
+            #1#
+        }*/
 
         //Student view test
         [Authorize]
@@ -194,11 +192,11 @@ c) include some fancy routing rule to stop this
                 testQuestions[pos].MarkObtained =
                     SimpleSQLCheck.SQL_NPAWL.CalculateMarkForQuestion(
                         testQuestions[pos].QuestionAnswer,
-                        testQuestions[pos].QuestionText,
+                        _questionStore.GetQuestion(testQuestions[pos].QuestionID).QuestionAnswer,
                         testQuestions[pos].QuestionMark
                     );
             });
-
+            SaveToDatabase(testQuestions);
             var answers = StudentTestQuestionAnswerModel.instance;
             if (answers == null) {
                 String UserID = User.Identity.Name;

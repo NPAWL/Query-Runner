@@ -57,7 +57,7 @@ namespace SimpleSQLCheck {
             mark /= 5;
 
             Console.WriteLine("Final mark is {0:2}%", mark * 100);
-            return (int) Math.Round(mark * 100);
+            return (int) Math.Round(mark * weight);
             // Console.ReadLine();
         }
 
@@ -66,6 +66,7 @@ namespace SimpleSQLCheck {
             try {
                 string selectQ = Get("SELECT", question).Replace(" ", "");
                 string selectA = Get("SELECT", answer).Replace(" ", "");
+                if (selectQ.Equals("")) return 0;
                 List<string> attributesQ = selectQ.Split(',').ToList();
                 List<string> attributesA = selectA.Split(',').ToList();
                 double count = 0.00;
@@ -84,7 +85,7 @@ namespace SimpleSQLCheck {
             try {
                 string fromQ = Get("FROM", question);
                 string fromA = Get("FROM", answer);
-
+                if (fromQ.Equals("")) return 0;
                 List<string> attributesQ = fromQ.Split(',').ToList();
                 List<string> attributesA = fromA.Split(',').ToList();
                 double count = 0;
@@ -103,6 +104,7 @@ namespace SimpleSQLCheck {
             try {
                 string whereQ = Get("WHERE", question);
                 string whereA = Get("WHERE", answer);
+                if (whereQ.Equals("")) return 0;
                 List<String> conditionsQ = Regex.Split(whereQ, " and | or ", options).ToList();
                 List<String> conditionsA = Regex.Split(whereA, " and | or ", options).ToList();
                 double count = 0;
@@ -121,6 +123,7 @@ namespace SimpleSQLCheck {
             try {
                 string odbyQ = Get("ORDER BY", question);
                 string odbyA = Get("ORDER BY", answer);
+                if (odbyQ.Equals("")) return 0;
                 List<String> groupsQ = odbyQ.Split(',').ToList();
                 List<String> groupsA = odbyA.Split(',').ToList();
                 double count = 0;
@@ -139,6 +142,7 @@ namespace SimpleSQLCheck {
             try {
                 string GPBY_Q = Get("GROUP BY", question);
                 string GPBY_A = Get("GROUP BY", answer);
+                if (GPBY_Q.Equals("")) throw new BadSqlOperation("Selector not in use!");
                 List<String> groupsQ = GPBY_Q.Split(',').ToList();
                 List<String> groupsA = GPBY_A.Split(',').ToList();
                 double count = 0;
@@ -156,10 +160,16 @@ namespace SimpleSQLCheck {
         #region [Helpers]
 
         private static string Get(string selector, IEnumerable<string> list) {
-            foreach (string cur in list) {
-                if (cur.ToUpper().Substring(0, selector.Length - 1).Equals(selector)) {
-                    return cur.Substring(selector.Length, cur.Length - selector.Length - 1);
+            try {
+                foreach (string cur in list) {
+                    String temp = cur.ToUpper().Substring(0, selector.Length);
+                    if (cur.ToUpper().Substring(0, selector.Length).Equals(selector)) {
+                        return cur.Substring(selector.Length, cur.Length - selector.Length);
+                    }
                 }
+            }
+            catch (ArgumentOutOfRangeException ignore) {
+                throw new BadSqlOperation("Selector not found in list!");
             }
 
             throw new BadSqlOperation("Selector not found in list!");
